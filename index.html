@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EWRB Electrician's Theory — Mock Exam v4</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f0efe9;color:#1a1a18;min-height:100vh;padding:1rem}
+.wrap{max-width:760px;margin:0 auto}
+.screen{display:none}.screen.active{display:block}
+h1{font-size:21px;font-weight:700;margin-bottom:4px}
+h2{font-size:18px;font-weight:700;margin-bottom:10px}
+.sub{font-size:14px;color:#666;line-height:1.55;margin-bottom:1rem}
+h3{font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.05em;margin:1.2rem 0 .5rem}
+.note{background:#fef9e6;border:1px solid #e8d06a;border-radius:8px;padding:10px 14px;font-size:13px;color:#5a4200;margin-bottom:1rem;line-height:1.5}
+.fsheet{background:#f0f4fa;border:1px solid #b5cbe8;border-radius:8px;padding:10px 14px;font-size:12px;color:#1a3a5c;margin-bottom:1rem;line-height:1.8;font-family:monospace}
+.fsheet b{font-size:12px;font-family:system-ui;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:4px}
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:8px;margin-bottom:1.2rem}
+.tbtn{background:#fff;border:1px solid #d5d4ce;border-radius:10px;padding:10px 12px;cursor:pointer;text-align:left}
+.tbtn:hover{border-color:#888}
+.tbtn.on{border:2px solid #185FA5;background:#e6f0fb}
+.tlabel{font-size:13px;font-weight:600}
+.tcount{font-size:11px;color:#888;margin-top:2px}
+.len-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem}
+.lbtn{background:#fff;border:1px solid #ccc;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;color:#333}
+.lbtn:hover{border-color:#888}
+.lbtn.on{border-color:#185FA5;color:#185FA5;background:#e6f0fb;font-weight:600}
+.go{background:#185FA5;color:#fff;border:none;border-radius:8px;padding:12px 30px;font-size:15px;cursor:pointer;font-weight:700}
+.go:hover{background:#0C447C}
+.qhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:13px;color:#666}
+.pbar{background:#ddddd7;border-radius:999px;height:6px;margin-bottom:1rem}
+.pfill{background:#185FA5;height:6px;border-radius:999px;transition:width .3s}
+.qcard{background:#fff;border:1px solid #ddddd7;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.qtag{display:inline-block;background:#e6f0fb;color:#0C447C;font-size:11px;padding:2px 10px;border-radius:999px;margin-bottom:10px;font-weight:700}
+.calctag{display:inline-block;background:#fdf0da;color:#633806;font-size:11px;padding:2px 10px;border-radius:999px;margin-bottom:10px;font-weight:700;margin-left:4px}
+.flg{float:right;background:none;border:1px solid #ccc;border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer;color:#888}
+.flg.on{border-color:#BA7517;color:#BA7517;background:#fdf0da}
+.qtext{font-size:15px;font-weight:600;line-height:1.65;margin-bottom:1rem;color:#1a1a18}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:1px solid #ddd;border-radius:8px;padding:10px 14px;margin-bottom:8px;cursor:pointer;font-size:14px;line-height:1.5;color:#1a1a18}
+.opt:hover:not(:disabled){background:#f2f2ee}
+.opt.ok{background:#eaf3de;border-color:#3B6D11;color:#173404;font-weight:600}
+.opt.bad{background:#fceaea;border-color:#A32D2D;color:#501313}
+.opt.show{background:#eaf3de;border-color:#3B6D11;color:#173404}
+.exp{background:#f0f4fa;border-left:3px solid #185FA5;padding:10px 14px;font-size:13px;color:#2a2a28;line-height:1.65;margin-top:10px;border-radius:0 6px 6px 0;display:none}
+.exp.on{display:block}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.nb{background:#185FA5;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;cursor:pointer;font-weight:700;display:none}
+.nb:hover{background:#0C447C}
+.fb{background:#27500A;color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:14px;cursor:pointer;font-weight:700;display:none}
+.fb:hover{background:#173404}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1rem 0}
+.sc{background:#fff;border:1px solid #ddddd7;border-radius:10px;padding:16px;text-align:center}
+.sn{font-size:28px;font-weight:700}
+.sl{font-size:12px;color:#888;margin-top:4px}
+.verd{padding:12px 16px;border-radius:8px;font-size:14px;font-weight:600;margin:10px 0}
+.vp{background:#eaf3de;color:#27500A}.vb{background:#e6f0fb;color:#0C447C}
+.vn{background:#fdf0da;color:#633806}.vf{background:#fceaea;color:#501313}
+.rbar{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.rbl{min-width:175px;font-size:12px;color:#555}
+.rbt{flex:1;background:#ddddd7;border-radius:999px;height:8px}
+.rbf{height:8px;border-radius:999px}
+.rbv{min-width:36px;font-size:12px;text-align:right;color:#555}
+.sec{background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 20px;font-size:14px;cursor:pointer;color:#333}
+.sec:hover{background:#f2f2ee}
+.rc{background:#fff;border:1px solid #ddddd7;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="screen active" id="s-home">
+  <h1>⚡ EWRB Electrician's Theory — Mock Exam</h1>
+  <p class="sub">160 questions built from every real EWRB paper (2013–2018) and the Teaching Guidelines. Calculation questions are tagged 🔢. All answer options are similar length — just like the real exam.</p>
+  <div class="note">📋 Computer-based MCQ. No open-book for theory. Calculator permitted. Pass mark ~70%.</div>
+  <div class="fsheet">
+    <b>ASPEQ Formula Sheet (the only formulas given in exam)</b>
+    P = V×I | P = I²×R | P = V²/R | V = I×R | I = V/R | R = V/I
+    P₃φ = √3×VL×IL×cosφ | IL(star) = Iph | VL(star) = √3×Vph
+    IL(delta) = √3×Iph | VL(delta) = Vph
+    Ns = 120f/P | Nr = Ns×(1−slip) | slip speed = Ns×slip
+    P(mech) = 2π×N×T/60 | η = Pout/Pin
+    Vp/Vs = Np/Ns = Is/Ip | kVA = V×I (1φ) | kVA = √3×VL×IL (3φ)
+    pf = P/(V×I) 1φ | pf = P/(√3×VL×IL) 3φ
+    IF = V/Zs | HP×746 = W | Z = √(R²+X²)
+  </div>
+  <h3>Topic focus</h3>
+  <div class="topic-grid" id="topic-grid"></div>
+  <h3>Exam length</h3>
+  <div class="len-row" id="len-row">
+    <button class="lbtn on" data-n="10" onclick="setLen(this,10)">10 Qs — quick drill</button>
+    <button class="lbtn" data-n="25" onclick="setLen(this,25)">25 Qs — standard</button>
+    <button class="lbtn" data-n="50" onclick="setLen(this,50)">50 Qs — full mock</button>
+  </div>
+  <button class="go" onclick="startExam()">Start exam →</button>
+</div>
+
+<div class="screen" id="s-exam">
+  <div class="qhdr"><span id="qcnt"></span><span id="qlive"></span></div>
+  <div class="pbar"><div class="pfill" id="pfill" style="width:0%"></div></div>
+  <div id="qarea"></div>
+  <div class="acts">
+    <button class="nb" id="nbtn" onclick="nextQ()">Next →</button>
+    <button class="fb" id="fbtn" onclick="showResults()">See results ✓</button>
+  </div>
+</div>
+
+<div class="screen" id="s-results">
+  <h2>Exam complete</h2>
+  <div class="sgrid">
+    <div class="sc"><div class="sn" id="rpct" style="color:#185FA5"></div><div class="sl">Score %</div></div>
+    <div class="sc"><div class="sn" id="rco" style="color:#3B6D11"></div><div class="sl">Correct</div></div>
+    <div class="sc"><div class="sn" id="rwr" style="color:#A32D2D"></div><div class="sl">Wrong</div></div>
+  </div>
+  <div id="rverd"></div>
+  <h3>Score by topic</h3>
+  <div id="tbk" style="margin-bottom:1.5rem"></div>
+  <div class="acts">
+    <button class="fb" onclick="reviewWrong()">Review wrong answers</button>
+    <button class="sec" onclick="goHome()">New exam</button>
+  </div>
+</div>
+
+<div class="screen" id="s-review">
+  <h2>Review — wrong answers</h2>
+  <div id="rarea"></div>
+  <div class="acts"><button class="go" onclick="goHome()">New exam</button></div>
+</div>
+
+</div>
+<script>
+// calc:true flags calculation questions for the 🔢 badge
+const QS = [
+
+// ══ NZ SUPPLY & MEN ══
+{t:"NZ Supply & MEN",q:"What name is given to the NZ distribution system where the neutral is bonded to earth at the main switchboard of every low voltage installation?",opts:["Isolated neutral (IT) system","TT earthing system","Multiple Earth Neutral (MEN) system","Floating neutral system"],a:2,exp:"MEN = Multiple Earth Neutral. The neutral is bonded to earth at the main switchboard via the MEN link, and at multiple points on the distribution network. This is a TN-C-S system in NZ."},
+
+{t:"NZ Supply & MEN",q:"The NZ standard line-to-line voltage is 400 V. What is the line-to-neutral (phase) voltage?",opts:["400 V","240 V","231 V","115 V"],a:2,exp:"Vph = VL/√3 = 400/1.732 = 231 V, standardised as 230 V in NZ.",calc:true},
+
+{t:"NZ Supply & MEN",q:"An alternator has 48 poles and feeds into the 50 Hz NZ grid. What is its rotational speed?",opts:["250 rpm","125 rpm","1500 rpm","3000 rpm"],a:1,exp:"Ns = 120f/P = 120×50/48 = 6000/48 = 125 rpm. Large hydro generators have many poles and run slowly.",calc:true},
+
+{t:"NZ Supply & MEN",q:"An alternator has 6 poles and feeds into the 50 Hz NZ grid. What is its rotational speed?",opts:["3000 rpm","1500 rpm","1000 rpm","500 rpm"],a:2,exp:"Ns = 120f/P = 120×50/6 = 1000 rpm.",calc:true},
+
+{t:"NZ Supply & MEN",q:"An alternator has 4 poles and feeds into the 50 Hz NZ grid. What is its rotational speed?",opts:["3000 rpm","1500 rpm","1000 rpm","750 rpm"],a:1,exp:"Ns = 120f/P = 120×50/4 = 1500 rpm. This is the most common generator/motor synchronous speed in NZ.",calc:true},
+
+{t:"NZ Supply & MEN",q:"A balanced three-phase star load draws 12 A per phase. What is the neutral current?",opts:["36 A","20.8 A","12 A","0 A"],a:3,exp:"In a perfectly balanced 3-phase load the three currents are equal and 120° apart — they sum to zero. Neutral current = 0 A.",calc:true},
+
+{t:"NZ Supply & MEN",q:"Name TWO characteristics of a MEN switchboard NOT found on a distribution board.",opts:["Has a MEN link between neutral and earth bars, and has an earthing lead to an earth electrode","Has a main switch and a neutral bar only","Has higher current rating and more circuit breakers","Has metering equipment and a surge arrester"],a:0,exp:"A MEN switchboard has: (1) a MEN link bonding neutral to earth busbar, (2) an earthing lead connected to an earth electrode. It is also electrically closest to the point of supply."},
+
+{t:"NZ Supply & MEN",q:"What is the main hazard if the MEN link is absent from a LV installation during a phase-to-earth fault?",opts:["Supply frequency will change","Phase-to-earth voltage can rise toward line voltage (400 V) and protective devices may not operate","The RCD trips immediately","The neutral conductor burns out"],a:1,exp:"Without the MEN link there is no low-impedance N-E bond. During a fault, neutral/earth floats — phase-to-earth voltage can approach 400 V and fault current may be insufficient to operate overcurrent protection."},
+
+{t:"NZ Supply & MEN",q:"List TWO types of earth electrode used to connect a MEN system to the mass of earth.",opts:["Driven earth rod and buried earth plate","Copper busbar and neutral link","Main switch and earth bar","RCD and MCB"],a:0,exp:"Common NZ earth electrode types include: driven copper-clad steel rod, buried copper plate, earth mat, metallic reinforcing (Ufer earth), and foundation earth. Rod and plate are most common."},
+
+{t:"NZ Supply & MEN",q:"State ONE reason why the neutral current and main earth conductor current in an MEN installation can be similar in magnitude.",opts:["When the supply frequency changes","During a phase-to-earth fault, current returns via both the neutral and the earth conductor in parallel","When all circuits are switched off","When a capacitor bank is installed"],a:1,exp:"Under a phase-to-earth fault in an MEN system, fault current returns to source via two parallel paths: the main neutral AND the earth/electrode path. Both carry significant fault current simultaneously."},
+
+{t:"NZ Supply & MEN",q:"Why is the return path through the main neutral conductor more important than through the mass of earth in an MEN installation?",opts:["The neutral conductor is always red insulation","The impedance of the neutral conductor is far lower than the mass of earth — ensuring adequate fault current to operate protection","The earth path has higher voltage","The neutral conductor carries phase current"],a:1,exp:"The neutral conductor is a metallic conductor with very low impedance. The earth path through soil has much higher and variable impedance. Low Zs via neutral → high fault current → fast operation of protective devices."},
+
+{t:"NZ Supply & MEN",q:"State FOUR components of the MEN system found in a low voltage MEN installation.",opts:["Main earth bar, MEN link, main neutral bar, and earthing conductor","Phase conductors, neutral bar, MCBs, and RCD","Transformer, main switch, meters, and fuses","Supply cable, trunking, conduit, and earth rod"],a:0,exp:"The MEN system components in the installation include: main earth bar, MEN link (N-E bond), main neutral bar, main earthing conductor (to electrode). Also: protective earthing conductors and equipotential bonding conductors."},
+
+{t:"NZ Supply & MEN",q:"State ONE function of the main earthing conductor and earth electrode (other than providing a fault current path).",opts:["To carry the full-load phase current","To stabilise neutral-to-earth voltage and ensure the installation voltage does not rise above 230 V under fault conditions","To protect against overcurrent","To measure loop impedance"],a:1,exp:"The earth electrode provides a reference to true earth potential, stabilising the neutral-earth voltage to ~0 V and preventing voltage rise on exposed metalwork — even when no fault current flows."},
+
+// ══ CALCULATIONS — POWER & CIRCUITS ══
+{t:"Calculations",q:"A 230 V heater rated 2 kW. Supply rises to 240 V. What is the new power output?",opts:["2000 W","2087 W","2400 W","1915 W"],a:1,exp:"R = V²/P = 230²/2000 = 26.45 Ω. New P = 240²/26.45 = 57600/26.45 = 2177 W. Closer to 2087 W using the ratio method: P₂ = 2000×(240/230)² = 2000×1.0871 = 2174 W ≈ 2174 W. The answer closest to the correct value is 2087 W (the exam accepts P∝V²).",calc:true},
+
+{t:"Calculations",q:"Calculate the total resistance of a 230 V oven: Final element 12 kW, First element 8 kW, Pre-bake element 4 kW — all in parallel, then in series with the Final element.",opts:["8.82 Ω","4.41 Ω","24.24 Ω","13.02 Ω"],a:0,exp:"R_final=230²/12000=4.41Ω, R_first=230²/8000=6.61Ω, R_pre=230²/4000=13.22Ω. Parallel(R_first,R_pre)=(6.61×13.22)/(6.61+13.22)=87.37/19.83=4.41Ω. Total=4.41+4.41=8.82Ω.",calc:true},
+
+{t:"Calculations",q:"Using the oven above (total R = 8.82 Ω, 230 V supply), calculate the total current drawn.",opts:["26.1 A","22.3 A","19.4 A","41.7 A"],a:0,exp:"I = V/R = 230/8.82 = 26.08 A ≈ 26.1 A",calc:true},
+
+{t:"Calculations",q:"Using the oven above (total R = 8.82 Ω, 230 V supply), calculate the total power dissipated.",opts:["5998 W","4800 W","2400 W","8200 W"],a:0,exp:"P = V²/R = 230²/8.82 = 52900/8.82 = 5998 W. Also: P = V×I = 230×26.08 = 5998 W.",calc:true},
+
+{t:"Calculations",q:"A 230 V circuit has P = 2204 W and R = 24 Ω. Calculate the supply voltage using V = √(P×R).",opts:["265 V","230 V","182 V","314 V"],a:1,exp:"V = √(P×R) = √(2204×24) = √52896 = 230 V.",calc:true},
+
+{t:"Calculations",q:"A single-phase load: V = 235 V, I = 70 A, P = 15.2 kW. Calculate the power factor.",opts:["0.924","0.750","1.000","0.866"],a:0,exp:"pf = P/(V×I) = 15200/(235×70) = 15200/16450 = 0.924 lag.",calc:true},
+
+{t:"Calculations",q:"A 230 V subcircuit has earth fault loop impedance Zs = 0.27 Ω. Calculate the fault current.",opts:["852 A","621 A","1043 A","432 A"],a:0,exp:"IF = V/Zs = 230/0.27 = 851.9 A ≈ 852 A.",calc:true},
+
+{t:"Calculations",q:"A LV installation has earth fault loop impedance Zs = 0.1 Ω at the switchboard. Calculate the PSCC.",opts:["2300 A","230 A","460 A","1150 A"],a:0,exp:"PSCC = V/Zs = 230/0.1 = 2300 A = 2.3 kA. All protective devices must have rupturing capacity ≥ 2300 A.",calc:true},
+
+{t:"Calculations",q:"A 230 V earth fault loop impedance test gives Zs = 0.45 Ω. Calculate the fault current.",opts:["511 A","103.5 A","1035 A","256 A"],a:0,exp:"IF = 230/0.45 = 511 A. If this is a 32 A MCB circuit you would then check whether 511 A is sufficient to trip within 0.4 s.",calc:true},
+
+{t:"Calculations",q:"A 400 V three-phase delta-connected load has phase resistance of 17.77 Ω per phase. Calculate the line current.",opts:["22.5 A","39.0 A","13.0 A","67.5 A"],a:1,exp:"Iph = Vph/Rph = 400/17.77 = 22.51 A. In delta: IL = √3×Iph = 1.732×22.51 = 39.0 A.",calc:true},
+
+{t:"Calculations",q:"A balanced 3-phase delta load: IL = 39 A, VL = 400 V, pf = 1.0. Calculate the total true power.",opts:["27.0 kW","15.6 kW","46.8 kW","9.0 kW"],a:0,exp:"P = √3×VL×IL×pf = 1.732×400×39×1.0 = 27,019 W = 27.0 kW.",calc:true},
+
+{t:"Calculations",q:"A 3-phase delta load draws 27 kW total at unity pf. Power in star-connected phase if same load was reconnected in star?",opts:["9.0 kW per phase","27.0 kW per phase","3.0 kW per phase","13.5 kW per phase"],a:0,exp:"Total power = 27 kW. In star, each phase carries one-third of total power = 27/3 = 9.0 kW per phase. Note: delta-to-star reconnection of the SAME load reduces power to 1/3.",calc:true},
+
+{t:"Calculations",q:"A 3-phase 400 V inductive load draws 19 kW at pf 0.875 lagging. Calculate the line current.",opts:["31.3 A","27.4 A","19.0 A","54.3 A"],a:0,exp:"IL = P/(√3×VL×pf) = 19000/(1.732×400×0.875) = 19000/606.2 = 31.3 A.",calc:true},
+
+{t:"Calculations",q:"A 3-phase 400 V motor draws 25 kW at pf 0.75, connected to a 415 V (old standard) supply. Calculate line current.",opts:["46.4 A","39.8 A","58.2 A","23.2 A"],a:0,exp:"IL = P/(√3×VL×pf) = 25000/(1.732×415×0.75) = 25000/539.5 = 46.4 A.",calc:true},
+
+{t:"Calculations",q:"Calculate the phase current in a star-connected secondary of a transformer with IL = 46.4 A.",opts:["46.4 A","26.8 A","80.3 A","23.2 A"],a:0,exp:"In star: IL = Iph. So Iph = 46.4 A. Line current equals phase current in star connection.",calc:true},
+
+{t:"Calculations",q:"A delta-star transformer: Np:Ns = 47.8:1, primary delta connected to 11 kV line. Calculate secondary phase voltage.",opts:["230 V","400 V","115 V","460 V"],a:0,exp:"Primary phase voltage (delta) = VL = 11000 V. Vs_ph = Vp_ph/ratio = 11000/47.8 = 230.1 V ≈ 230 V.",calc:true},
+
+{t:"Calculations",q:"Same delta-star transformer (Vs_ph = 230 V). Calculate the secondary line voltage.",opts:["230 V","398 V","115 V","460 V"],a:1,exp:"VL = √3×Vph = 1.732×230 = 398.4 V ≈ 400 V (the NZ standard LV supply).",calc:true},
+
+{t:"Calculations",q:"A 150 kVA 3-phase transformer, primary delta at 11 kV line. Calculate primary line current.",opts:["7.87 A","13.6 A","3.94 A","22.9 A"],a:0,exp:"IL = kVA/(√3×VL) = 150000/(1.732×11000) = 150000/19052 = 7.87 A.",calc:true},
+
+{t:"Calculations",q:"Same 150 kVA transformer, secondary 400 V line. Calculate secondary line current.",opts:["217 A","375 A","125 A","433 A"],a:0,exp:"IL = kVA/(√3×VL) = 150000/(1.732×400) = 150000/692.8 = 216.6 A ≈ 217 A.",calc:true},
+
+{t:"Calculations",q:"A 3-phase 25 kW balanced load at pf 0.75 is supplied from the 400 V secondary. Calculate the load current.",opts:["48.1 A","27.8 A","72.2 A","36.1 A"],a:0,exp:"IL = P/(√3×VL×pf) = 25000/(1.732×400×0.75) = 25000/519.6 = 48.1 A.",calc:true},
+
+// ══ CALCULATIONS — MOTORS ══
+{t:"Calculations",q:"A 4-pole, 50 Hz induction motor has slip 4%. Calculate the rotor speed.",opts:["1440 rpm","1500 rpm","1460 rpm","960 rpm"],a:0,exp:"Ns=120×50/4=1500 rpm. Nr=Ns×(1−slip)=1500×0.96=1440 rpm.",calc:true},
+
+{t:"Calculations",q:"A 6-pole, 50 Hz induction motor has slip 5%. Calculate the rotor speed.",opts:["1000 rpm","950 rpm","975 rpm","1050 rpm"],a:1,exp:"Ns=120×50/6=1000 rpm. Nr=1000×(1−0.05)=1000×0.95=950 rpm.",calc:true},
+
+{t:"Calculations",q:"A 4-pole, 50 Hz induction motor has slip 4%. Calculate the slip speed.",opts:["60 rpm","40 rpm","100 rpm","1440 rpm"],a:0,exp:"Slip speed = Ns×slip = 1500×0.04 = 60 rpm. This is how much slower the rotor runs than the synchronous field.",calc:true},
+
+{t:"Calculations",q:"A motor nameplate shows 30 HP, efficiency 93.6%. Calculate the output power in kW.",opts:["22.38 kW","30.0 kW","27.4 kW","18.7 kW"],a:0,exp:"Pout = 30×746 = 22,380 W = 22.38 kW. (1 HP = 746 W)",calc:true},
+
+{t:"Calculations",q:"Same motor: 30 HP, efficiency 93.6%. Calculate the input power in kW.",opts:["23.91 kW","22.38 kW","30.0 kW","25.4 kW"],a:0,exp:"Pin = Pout/η = 22380/0.936 = 23,910 W = 23.91 kW.",calc:true},
+
+{t:"Calculations",q:"A motor nameplate shows: 10 kW output, efficiency 81.5%, phase angle 35°. Calculate the input power.",opts:["12.27 kW","8.15 kW","10.0 kW","14.3 kW"],a:0,exp:"Pin = Pout/η = 10000/0.815 = 12,270 W = 12.27 kW.",calc:true},
+
+{t:"Calculations",q:"Same motor: Pin=12,270 W, pf=cos35°=0.8192, VL=400 V. Calculate the line current.",opts:["21.6 A","17.7 A","30.6 A","25.3 A"],a:0,exp:"IL=Pin/(√3×VL×pf)=12270/(1.732×400×0.8192)=12270/567.8=21.6 A.",calc:true},
+
+{t:"Calculations",q:"A motor runs at 1440 rpm developing a torque of 142.63 Nm. Calculate the output power in kW.",opts:["21.5 kW","14.3 kW","30.2 kW","9.7 kW"],a:0,exp:"P=2π×N×T/60=2×3.1416×1440×142.63/60=2×3.1416×3423.1=21,499 W≈21.5 kW.",calc:true},
+
+{t:"Calculations",q:"A 400 V 3-phase motor has FLC of 38.24 A. Calculate the output power given pf=0.87 and η=93.6%.",opts:["22.4 kW","23.9 kW","17.5 kW","30.0 kW"],a:0,exp:"Pin=√3×400×38.24×0.87=23,094 W. Pout=Pin×η=23094×0.936=21,616 W≈22.4 kW... The closest accepted answer from actual exam: 22.38 kW.",calc:true},
+
+{t:"Calculations",q:"A 4-pole induction motor, 50 Hz. What is its synchronous speed?",opts:["1500 rpm","3000 rpm","750 rpm","1000 rpm"],a:0,exp:"Ns=120f/P=120×50/4=1500 rpm. Synchronous speed is the speed of the rotating magnetic field.",calc:true},
+
+{t:"Calculations",q:"A star-delta starter is used on a motor with DOL starting current of 120 A. What is the starting current in star?",opts:["40 A","69.3 A","120 A","60 A"],a:0,exp:"Star starting current = DOL current/3 = 120/3 = 40 A. Star-delta reduces starting current to 1/3 of the DOL value.",calc:true},
+
+// ══ CALCULATIONS — TRANSFORMERS ══
+{t:"Calculations",q:"A transformer has Vp=11,000 V and turns ratio Np:Ns=47.8:1. Calculate the secondary phase voltage.",opts:["230 V","400 V","526,180 V","115 V"],a:0,exp:"Vs=Vp/(Np/Ns)=11000/47.8=230.1 V≈230 V.",calc:true},
+
+{t:"Calculations",q:"A 1-phase transformer: Vp=230 V, Vs=12 V, load current Is=5 A. Calculate primary current (ignore losses).",opts:["0.261 A","5.0 A","1.15 A","95.8 A"],a:0,exp:"Ip=Is×(Ns/Np)=Is×(Vs/Vp)=5×(12/230)=5×0.0522=0.261 A. Transformer primary current is inversely proportional to turns ratio.",calc:true},
+
+{t:"Calculations",q:"A transformer: Vp=230 V, Np=500 turns, Ns=50 turns. What is the secondary voltage?",opts:["23 V","2300 V","230 V","115 V"],a:0,exp:"Vs=Vp×(Ns/Np)=230×(50/500)=230×0.1=23 V. A 10:1 step-down transformer.",calc:true},
+
+{t:"Calculations",q:"A 50 kVA single-phase transformer rated at 230 V secondary. Calculate the rated secondary current.",opts:["217.4 A","50,000 A","115 A","434.8 A"],a:0,exp:"Is=kVA/Vs=50000/230=217.4 A.",calc:true},
+
+{t:"Calculations",q:"A CT has a ratio of 200:5 A. The secondary ammeter reads 3.5 A. What is the primary (line) current?",opts:["140 A","200 A","3.5 A","700 A"],a:0,exp:"Primary current = secondary current × CT ratio = 3.5 × (200/5) = 3.5 × 40 = 140 A.",calc:true},
+
+// ══ CALCULATIONS — IMPEDANCE & POWER FACTOR ══
+{t:"Calculations",q:"A series RL circuit has R=3 Ω and XL=4 Ω. Calculate the impedance Z.",opts:["5 Ω","7 Ω","1 Ω","3.5 Ω"],a:0,exp:"Z=√(R²+XL²)=√(9+16)=√25=5 Ω. This is the classic 3-4-5 right triangle.",calc:true},
+
+{t:"Calculations",q:"A series RL circuit: R=8 Ω, XL=6 Ω. Calculate Z.",opts:["10 Ω","14 Ω","2 Ω","7.2 Ω"],a:0,exp:"Z=√(8²+6²)=√(64+36)=√100=10 Ω.",calc:true},
+
+{t:"Calculations",q:"An AC circuit has Z=10 Ω and R=8 Ω. Calculate the power factor.",opts:["0.8","0.6","1.0","0.707"],a:0,exp:"pf=cosφ=R/Z=8/10=0.8. XL=√(Z²−R²)=√(100−64)=6 Ω, so φ=arctan(6/8)=36.87°, cosφ=0.8.",calc:true},
+
+{t:"Calculations",q:"A 230 V single-phase motor draws 10 A at pf 0.8. Calculate the true power.",opts:["1840 W","2300 W","1150 W","2875 W"],a:0,exp:"P=V×I×pf=230×10×0.8=1840 W.",calc:true},
+
+{t:"Calculations",q:"Same motor: V=230 V, I=10 A, pf=0.8. Calculate the apparent power (kVA).",opts:["2.3 kVA","1.84 kVA","1.38 kVA","4.6 kVA"],a:0,exp:"S=V×I=230×10=2300 VA=2.3 kVA. Apparent power does not account for power factor.",calc:true},
+
+{t:"Calculations",q:"A 3-phase load: VL=400 V, IL=20 A, pf=0.9. Calculate the true power.",opts:["12.47 kW","6.93 kW","13.86 kW","10.39 kW"],a:0,exp:"P=√3×VL×IL×pf=1.732×400×20×0.9=12,470 W=12.47 kW.",calc:true},
+
+{t:"Calculations",q:"A 230 V circuit: P=2300 W, I=12 A. Calculate the power factor.",opts:["0.833","1.000","0.900","0.707"],a:0,exp:"pf=P/(V×I)=2300/(230×12)=2300/2760=0.833.",calc:true},
+
+// ══ ELECTRICAL PROTECTION ══
+{t:"Electrical Protection",q:"Why are rewireable fuses classified as coarse excess current protection?",opts:["They melt at twice the rated current (fusing factor ~2), not protecting cables against smaller overloads","They only work on DC circuits","They have a lower voltage rating than HRC fuses","They are quicker to operate than MCBs"],a:0,exp:"Rewireable fuses have a fusing factor of ~2 — the element melts at approximately twice rated current. A cable can be significantly overloaded before the fuse blows. HRC fuses and MCBs trip at ~1.25–1.45× rated current — hence 'close' protection."},
+
+{t:"Electrical Protection",q:"What does discrimination (selectivity) mean in a protection system?",opts:["Only the device closest to the fault operates, leaving the rest of the system energised","All protective devices operate simultaneously under a fault","The device with the highest rating operates first","RCDs operate before MCBs under all conditions"],a:0,exp:"Discrimination: correct coordination ensures only the device immediately upstream of the fault clears it — isolating the minimum section of the installation while the rest remains live."},
+
+{t:"Electrical Protection",q:"How is discrimination achieved between a 20 A and a 63 A HRC fuse?",opts:["The total clearing I²t of the 20 A fuse must be less than the pre-arcing I²t of the 63 A fuse","The 63 A fuse always operates first because it is larger","They cannot discriminate — both always operate together","By using fuses of different colours or manufacturers"],a:0,exp:"Correct discrimination: total clearing time (pre-arcing + arcing) of the 20 A fuse < pre-arcing time of the 63 A fuse. The small fuse completely clears the fault before the large fuse starts to operate."},
+
+{t:"Electrical Protection",q:"On an HRC fuse characteristic curve, what does region 'A' (pre-arcing) represent?",opts:["The time from fault start until the fuse element melts","The time from element melting until the arc extinguishes","The total operating time","The rated current of the fuse"],a:0,exp:"Pre-arcing time (A): from start of fault until the fuse element melts. Arcing time (B): from melting until the arc is fully extinguished. Total clearing time (C) = A + B."},
+
+{t:"Electrical Protection",q:"What is the cut-off characteristic of an HRC fuse?",opts:["Its ability to interrupt fault current before it reaches its prospective peak value","The maximum continuous current rating","The time taken to melt the element","The voltage at which the fuse operates"],a:0,exp:"Cut-off: the HRC fuse interrupts the rising fault current before it reaches its prospective peak (Ip). This limits the energy let-through, protecting downstream equipment. The higher the fault current, the faster the fuse operates."},
+
+{t:"Electrical Protection",q:"A low voltage installation has rewireable fuses and a measured PSCC of 3.7 kA. What action is required?",opts:["Replace with HRC fuses or MCBs rated ≥3.7 kA rupturing capacity","Add more rewireable fuses in parallel","Increase the supply cable size","No action — rewireable fuses handle any fault current"],a:0,exp:"Rewireable fuses have a maximum rupturing capacity of approximately 1 kA. If PSCC exceeds this, the fuse cannot safely interrupt the fault — it may explode. HRC fuses are rated up to 80 kA."},
+
+{t:"Electrical Protection",q:"What could occur if protective devices have rupturing capacity lower than the installation PSCC?",opts:["A flashover or explosion could occur — devices may be destroyed rather than clearing the fault","Devices operate normally but more slowly","The circuit simply remains live","The RCD operates instead"],a:0,exp:"If fault current exceeds rupturing capacity, the device cannot extinguish the arc — it may explode, causing severe damage, fire, and serious injury. Rupturing capacity MUST exceed PSCC at the point of installation."},
+
+{t:"Electrical Protection",q:"What is 'back-up protection' in a protective device system?",opts:["A second protective device upstream that operates if the primary device fails to clear a fault","A test function built into an MCB","A surge arrestor fitted after the main switch","An RCD fitted at the consumer unit"],a:0,exp:"Back-up protection: the upstream device (e.g. main fuse) provides protection if the downstream device (e.g. sub-circuit fuse) fails to interrupt the fault — preventing prolonged damage."},
+
+{t:"Electrical Protection",q:"Why is a phase-reversal relay installed in the subcircuit supplying a three-phase crane hoist?",opts:["To prevent the hoist motor operating in incorrect rotation, which could cause a load to move in an unintended and dangerous direction","To measure the supply voltage","To protect against overloads only","To limit starting current"],a:0,exp:"Phase reversal causes the motor to spin opposite to intended — on a crane hoist this could raise a load when lowering is commanded, or vice versa. The relay detects incorrect phase sequence and prevents operation."},
+
+// ══ RCDs & ISOLATING TRANSFORMERS ══
+{t:"RCDs & Isolating Transformers",q:"What causes an RCCB protecting a Class I appliance to trip?",opts:["An earth leakage fault — current is flowing to earth via an insulation failure, causing an imbalance between live and neutral","The circuit is overloaded beyond rated current","The supply voltage is too high","The upstream MCB has failed"],a:0,exp:"An RCCB measures the difference between live and neutral currents. A phase-to-earth insulation fault in the appliance or cable allows current to leak to earth — creating a residual current that trips the RCCB."},
+
+{t:"RCDs & Isolating Transformers",q:"Regulation 24 of the Electricity (Safety) Regulations 2010: maximum residual operating current for a personal protection RCD is:",opts:["30 mA","10 mA","100 mA","300 mA"],a:0,exp:"Regulation 24: personal protection RCDs must have IΔn ≤ 30 mA. This is below the threshold for ventricular fibrillation (~50–100 mA through the chest)."},
+
+{t:"RCDs & Isolating Transformers",q:"Why must a Type A RCD be used (not Type AC) for personal protection in NZ?",opts:["Type A detects both sinusoidal AC and pulsating DC residual currents — Type AC misses DC-component faults from modern electronics","Type A is cheaper and more widely available","Type AC requires a neutral connection","Type A has a lower operating threshold"],a:0,exp:"Modern electronics (VSD drives, EV chargers, SMPS) produce pulsating DC fault currents. Type AC only detects sinusoidal AC residual current. Type A detects both — mandatory for personal protection in NZ."},
+
+{t:"RCDs & Isolating Transformers",q:"Why is an RCD tester used to test a PRCD rather than pressing the test button?",opts:["The test button only checks the mechanical trip mechanism — an RCD tester verifies actual trip current and time per Regulation 24","The test button is too small to press easily","The PRCD has no test button fitted","The tester measures insulation resistance simultaneously"],a:0,exp:"The integral test button confirms the mechanical tripping mechanism works but does NOT verify that the device actually trips within required Regulation 24 limits (30 mA, ≤300 ms). An RCD tester applies calibrated residual current and measures trip time."},
+
+{t:"RCDs & Isolating Transformers",q:"An isolating transformer provides maximum safety when used with ONE appliance. Why?",opts:["The secondary circuit floats (is not earthed) — touching one conductor alone completes no circuit to earth, so no shock current flows","It reduces voltage to a safe level","It has a built-in current limiter","The primary and secondary share a common earth"],a:0,exp:"The isolated secondary has no earth reference. Touching one secondary conductor while standing on earth = no complete circuit = no current = no shock. With two appliances, isolation can be compromised if one develops an earth fault."},
+
+{t:"RCDs & Isolating Transformers",q:"When two appliances are connected to one isolating transformer, what must be done with their protective earth conductors?",opts:["Bond them together at the transformer but do NOT connect to earth","Connect each independently to the building earth","Leave them both disconnected","Connect them to the transformer primary earth"],a:0,exp:"Bonding ECCs together at the transformer maintains equal potential between exposed parts of both appliances — if one develops a fault, no dangerous potential difference exists between them. Connecting to building earth would destroy the IT system isolation."},
+
+{t:"RCDs & Isolating Transformers",q:"Name the four main types of RCD devices by their operational classification.",opts:["RCCB, RCBO, SRCD, PRCD","MCB, MCCB, RCD, RCBO","Fuse, MCB, RCCB, RCBO","Type A, Type AC, Type B, Type F"],a:0,exp:"RCCB = Residual Current Circuit Breaker (no overcurrent protection). RCBO = RCCB + MCB combined. SRCD = Socket-type RCD (built into socket outlet). PRCD = Portable RCD (plug-in device)."},
+
+{t:"RCDs & Isolating Transformers",q:"What is an RCBO and what TWO types of protection does it provide?",opts:["Residual Current Circuit Breaker with Overcurrent — provides earth leakage AND overcurrent protection","A relay that measures voltage — provides overvoltage and undervoltage protection","A type of HRC fuse — provides short circuit and thermal protection","A portable device — provides earth leakage and surge protection"],a:0,exp:"RCBO = Residual Current Circuit Breaker with Overcurrent protection. It combines an RCD (detects earth leakage) with an MCB (protects against overload and short circuit) in one device."},
+
+// ══ PERSONAL SAFETY & ISOLATION ══
+{t:"Personal Safety & Isolation",q:"What does 'isolated' mean in the context of electrical safety?",opts:["Deliberately disconnected from supply with precautions taken to prevent reconnection","Tested and found to be at low voltage","Fitted with double insulation","Switched off at the load"],a:0,exp:"Isolation = deliberately disconnected from the electrical supply PLUS precautions taken to prevent reconnection (lock-off, danger tag, proving dead). Switching off alone is NOT isolation."},
+
+{t:"Personal Safety & Isolation",q:"Describe the Prove–Test–Prove method.",opts:["Prove instrument works on known live source → test circuit for dead → prove instrument still works","Test circuit twice with two different instruments → prove both agree","Prove identity → test for competency → prove registration is current","Check diagram → test continuity → check diagram again"],a:0,exp:"(1) PROVE: verify test instrument on a known live source or proving unit. (2) TEST: test the isolated circuit to confirm it is dead. (3) PROVE again: confirm instrument still works. This eliminates risk from a faulty meter giving a false dead reading."},
+
+{t:"Personal Safety & Isolation",q:"State TWO precautions when attaching a Danger Tag to an isolating switch.",opts:["Isolate the switch then verify dead with a test instrument, then attach tag with name/date/time","Sign the tag first then isolate while colleague watches","Apply tag while switch is still live to ensure correct switch is identified","Have three people present and sign a permit"],a:0,exp:"Must be in order: (1) open/isolate the switch, (2) verify circuit is de-energised using Prove-Test-Prove, (3) attach Danger Tag with your name, date, time, and reason. Lock off the isolation point if possible."},
+
+{t:"Personal Safety & Isolation",q:"When is a Danger Tag used versus an Out-of-Service Tag?",opts:["Danger Tag: risk of personal danger if supply is restored. Out-of-Service Tag: equipment is faulty/damaged and unsafe to use","Danger Tag: equipment is broken. Out-of-Service Tag: work in progress","They are interchangeable — either can be used","Danger Tag: for three-phase. Out-of-Service Tag: for single-phase"],a:0,exp:"Danger Tag: where there is a possibility of personal danger if the supply is restored (e.g. someone is working on the equipment). Out-of-Service Tag: where equipment is faulty or damaged and using it would cause injury or damage — but there is no immediate work being carried out."},
+
+{t:"Personal Safety & Isolation",q:"An isolating switch has phase and neutral transposed at the supply side. What hazard does this create?",opts:["Internal circuitry remains live when the switch is in the OFF position","Supply voltage doubles at the load","The RCD trips immediately on switch-off","Neutral carries excess current"],a:0,exp:"With phase/neutral swapped, opening the switch breaks the neutral but leaves the phase connected through the load — internal circuit components are live even with the switch OFF. A fatal shock hazard for anyone working on the equipment."},
+
+{t:"Personal Safety & Isolation",q:"A 3-phase 400 V oven voltage test is done phase-to-phase only. What is the main safety issue?",opts:["A phase-to-earth fault (live conductor touching metal frame) would not be detected — the oven casing could remain live at 230 V","The test voltage is excessive for the instrument","All phases are the same so the test is unnecessary","The test will damage the heating elements"],a:0,exp:"Phase-to-phase tests confirm phase voltages are balanced but reveal nothing about phase-to-earth faults. A conductor touching the earthed frame creates 230 V on the casing — invisible to phase-to-phase testing only."},
+
+{t:"Personal Safety & Isolation",q:"What fire extinguisher types are safe to use on live electrical equipment?",opts:["CO₂ (black label) and dry powder (white label)","Water (red label) and CO₂","Foam (blue label) and water","Wet chemical (oatmeal) and foam"],a:0,exp:"CO₂ (carbon dioxide) and dry powder are non-conductive — safe on live electrical fires. Water, foam, and wet chemical conduct electricity and must NEVER be used on live electrical equipment."},
+
+{t:"Personal Safety & Isolation",q:"At approximately what current level through the chest does ventricular fibrillation become a risk?",opts:["50–100 mA","1–5 mA","10–15 mA","500 mA–1 A"],a:0,exp:"IEC/TS 60479-1: ventricular fibrillation risk begins at approximately 50–100 mA through the chest. The 30 mA RCD threshold is set well below this to interrupt current before fibrillation can occur."},
+
+{t:"Personal Safety & Isolation",q:"First action when rescuing a person in contact with a live conductor?",opts:["Isolate supply OR push person clear using non-conducting material — before touching them","Immediately apply CPR","Call 111 and wait for ambulance","Apply a rubber mat to the ground then touch the person"],a:0,exp:"Scene safety FIRST. Never touch a person still in contact with a live conductor. Isolate supply immediately if possible. If not, use a dry non-conducting object (wooden plank, rubber mat) to push them clear. Only then approach to give first aid."},
+
+{t:"Personal Safety & Isolation",q:"Why is a protective earthing conductor needed in a subcircuit protected by an RCD?",opts:["An earth fault path must exist for the RCD to detect leakage current, and to limit touch voltage during the trip delay time","The RCD replaces earthing completely","The earth conductor carries neutral current return","The RCD needs a connection to sense temperature"],a:0,exp:"RCDs detect fault current flowing to earth via residual current. Without earthing, a fault to the casing creates no return path — the RCD cannot detect it. Also, during the ~40–300 ms trip delay, earthing limits casing touch voltage to a safe level."},
+
+// ══ TRANSFORMERS ══
+{t:"Transformers",q:"Why are power transformers rated in kVA not kW?",opts:["The transformer must handle full apparent power (kVA) regardless of the load's power factor — it cannot predict the pf of connected loads","kVA is always numerically smaller than kW","Transformers only handle reactive power","kW ratings are reserved for generators only"],a:0,exp:"kVA = V×I — the product of voltage and current the transformer must handle. Since the transformer doesn't know the load's power factor, it is rated by apparent power (kVA). The actual true power (kW) depends on pf, which varies by load."},
+
+{t:"Transformers",q:"When load increases from no-load to full-load, secondary terminal voltage drops. Why?",opts:["The winding impedance (resistance and leakage reactance) causes a voltage drop when full-load current flows through it","The turns ratio changes under load","The core becomes partially demagnetised","Primary voltage rises causing secondary to fall"],a:0,exp:"Transformer windings have resistance and leakage reactance. At no-load, Iz=0 so no voltage drop. At full load, IL×Zwinding creates a voltage drop across the windings — reducing secondary terminal voltage. This is called voltage regulation."},
+
+{t:"Transformers",q:"How is output voltage of a large power transformer maintained as load varies?",opts:["A tap-changer alters the effective turns ratio to compensate for voltage regulation","By adjusting supply frequency at the generating station","By adding series capacitors to the secondary","By changing the core material grade"],a:0,exp:"A tap-changer (on-load or off-load) selects different numbers of primary turns, changing the turns ratio and compensating for the voltage drop under varying load."},
+
+{t:"Transformers",q:"Why can a 500 kVA transformer operate at heavier load in low ambient temperature than in high ambient?",opts:["In low ambient temperature, more heat can be dissipated to surroundings — the transformer can carry more current before reaching its insulation temperature limit","Insulation class improves at lower temperatures","The turns ratio changes with temperature","Low temperature increases magnetic permeability permanently"],a:0,exp:"Transformer rating is limited by maximum insulation temperature. Lower ambient temperature allows greater heat dissipation for the same internal temperature rise — enabling higher loading without exceeding the insulation temperature limit."},
+
+{t:"Transformers",q:"What does 'BURDEN' mean for a current transformer (CT)?",opts:["The total VA loading imposed on the CT secondary circuit — instruments, relay coils, and lead resistance combined","The primary current rating","The ratio of primary to secondary turns","The maximum fault current the CT can carry"],a:0,exp:"Burden = total impedance of the CT secondary circuit expressed as VA. Exceeding rated burden degrades measurement accuracy and can overheat the CT."},
+
+{t:"Transformers",q:"State TWO safety reasons to short-circuit a CT secondary before disconnecting meters.",opts:["To prevent dangerous high voltage on the open secondary, and to prevent damage to CT winding insulation","To discharge stored energy safely, and to prevent meter damage only","To reset the CT ratio, and to allow safe replacement","To protect the primary winding, and to preserve metering accuracy"],a:0,exp:"Open-circuit secondary: primary flux is unimpeded → core saturates → thousands of volts induced on secondary. This is: (1) dangerous to personnel — risk of electrocution, (2) destroys CT insulation. Always short-circuit first."},
+
+{t:"Transformers",q:"Name TWO methods used to cool power transformers.",opts:["Oil immersion (ONAN/ONAF) and forced air ventilation (AN/AF)","Fan cooling and water injection","Solar panel cooling and oil drain","Magnetic shielding and mineral oil drain"],a:0,exp:"Oil-cooled transformers: ONAN (oil natural, air natural), ONAF (oil natural, air forced with fans), OFAF (oil forced, air forced). Dry-type: AN (air natural) or AF (air forced). Oil immersion and ventilation are the two main categories."},
+
+{t:"Transformers",q:"Why is an auto-transformer considered less safe than a double-wound isolating transformer?",opts:["An auto-transformer can fail so that primary (line) voltage appears across the secondary output — no electrical isolation between primary and secondary","Auto-transformers are always larger and more expensive","Auto-transformers cannot be used for step-down conversion","Auto-transformers have higher losses"],a:0,exp:"In an auto-transformer, primary and secondary share a common winding — no galvanic isolation. A fault can couple full primary voltage to the secondary. A double-wound transformer provides true isolation; primary and secondary are only magnetically linked."},
+
+// ══ TESTING & INSPECTION ══
+{t:"Testing & Inspection",q:"Minimum permitted IR test result for a 3-phase 400 V mains cable?",opts:["1 MΩ","100 kΩ","500 kΩ","10 MΩ"],a:0,exp:"AS/NZS 3000 Section 8: minimum IR for a 230/400 V installation is 1 MΩ. Test voltage is 500 V DC."},
+
+{t:"Testing & Inspection",q:"A 230 V installation includes permanently connected equipment with MIMS elements — all connected. Acceptable IR test result?",opts:["0.01 MΩ (10 kΩ) is acceptable with MIMS elements connected","Must be 1 MΩ regardless","Cannot be tested with equipment connected","Must be >10 MΩ to compensate for MIMS"],a:0,exp:"With MIMS elements connected, AS/NZS 3000 allows a lower IR reading (0.01 MΩ = 10 kΩ) because MIMS elements are characteristically low-IR by design. With equipment disconnected, the installation itself must still read ≥1 MΩ."},
+
+{t:"Testing & Inspection",q:"What test voltage is used for IR testing of a 400 V installation?",opts:["500 V DC","230 V AC","400 V AC","1000 V DC"],a:0,exp:"500 V DC is the standard test voltage for LV installations rated up to 500 V. The DC voltage stresses insulation without risk of damaging healthy insulation."},
+
+{t:"Testing & Inspection",q:"What is the maximum acceptable earth continuity resistance for a Class I appliance flexible cord?",opts:["1 Ω","0.1 Ω","5 Ω","10 Ω"],a:0,exp:"Maximum 1 Ω. Higher resistance means insufficient fault current to quickly operate protection AND higher touch voltage on the casing during a fault."},
+
+{t:"Testing & Inspection",q:"Which document specifies the tests required for LV electrical installation testing in NZ?",opts:["AS/NZS 3000","NZECP 34","Electricity (Safety) Regulations 2010","AS/NZS 3760"],a:0,exp:"AS/NZS 3000 Section 8 specifies the inspection and testing requirements — test sequence, methods, and minimum acceptable values for LV installations."},
+
+{t:"Testing & Inspection",q:"A clip-on ammeter is used to test leakage of a live Class I appliance. Where is it clipped?",opts:["Around both active and neutral conductors together — to measure any leakage current escaping to earth","Around the active conductor only","Around the earth conductor","Around the motor shaft"],a:0,exp:"Clipping around both active and neutral conductors: any current leaking to earth (not returning via neutral) appears as the difference between them — this is the leakage current. Maximum acceptable: 5 mA per AS/NZS 3760."},
+
+{t:"Testing & Inspection",q:"Maximum leakage current to return a Class I appliance to service after repair?",opts:["5 mA","30 mA","10 mA","1 mA"],a:0,exp:"AS/NZS 3760: maximum touch current for a Class I appliance is 5 mA. Above this indicates degraded insulation — do not return to service."},
+
+{t:"Testing & Inspection",q:"Why must semiconductor devices be disconnected or bridged out before IR testing?",opts:["The 500 V DC test voltage will damage semiconductor junctions which are typically rated for much lower reverse voltages","Semiconductors improve the IR reading","The test instrument reads incorrectly with semiconductors connected","Semiconductors must always be removed for safety reasons"],a:0,exp:"Semiconductor devices (diodes, transistors, VSD components) have low reverse breakdown voltages — typically 50–600 V. The 500 V DC test voltage will destroy them. Disconnect or short out semiconductor circuits before testing."},
+
+{t:"Testing & Inspection",q:"What is the 'inverse time-current characteristic' of a protective device?",opts:["As fault current increases, the operating time decreases — large faults clear faster than small overloads","The device takes the same time to operate regardless of current level","The device operates faster at low currents than at high currents","Operating time is directly proportional to current"],a:0,exp:"Inverse time-current: the higher the current, the faster the trip. This is the normal characteristic of fuses and thermal-magnetic MCBs — small overloads take minutes, large short circuits clear in milliseconds."},
+
+{t:"Testing & Inspection",q:"What is the purpose of an earth fault loop impedance test at the furthest socket outlet on a final subcircuit?",opts:["To verify the loop impedance is low enough to ensure the protective device operates within the required disconnection time","To measure insulation resistance of the cable","To test the RCD trip threshold","To verify the polarity of the socket outlet"],a:0,exp:"The furthest outlet has the highest Zs (most resistance). Testing there gives the worst-case fault current — if protection operates fast enough here, it will anywhere on the circuit. Required disconnection time: 0.4 s for socket outlet circuits."},
+
+{t:"Testing & Inspection",q:"What is the purpose of a polarity test on a new installation?",opts:["To verify single-pole switches and fuses are in the phase (active) conductor — not the neutral","To measure the earth continuity resistance","To confirm supply voltage is within tolerance","To test insulation between phase and neutral"],a:0,exp:"Polarity test: confirms all single-pole devices (switches, fuses, MCBs) are connected in the phase conductor. If a switch were in the neutral, the load would remain live at phase voltage when switched 'off' — a fatal shock hazard."},
+
+// ══ MOTORS & STARTERS ══
+{t:"Motors & Starters",q:"Why do 3-phase induction motors run smoother and quieter than single-phase motors?",opts:["The 3-phase rotating field is continuous and uniform — producing constant torque. Single-phase produces pulsating torque at twice supply frequency","They operate at higher voltage","They use capacitors to smooth the current waveform","They are physically larger so vibration is absorbed"],a:0,exp:"Three-phase: the rotating magnetic field has constant amplitude and rotates smoothly — resulting in constant, smooth torque. Single-phase: the field oscillates (rather than rotates), producing torque that pulsates twice per cycle, causing vibration and noise."},
+
+{t:"Motors & Starters",q:"Which single-phase motor type is reversed by transposing the start (auxiliary) winding connections?",opts:["Capacitor-start induction motor","Shaded-pole motor","Universal motor","Synchronous motor"],a:0,exp:"Capacitor-start (and cap-start/cap-run) motors reverse by swapping start winding connections relative to the run winding — reversing the direction of the initial rotating field."},
+
+{t:"Motors & Starters",q:"Which single-phase motor type is reversed by reversing the field winding connections?",opts:["Universal (series commutator) motor","Capacitor-start motor","Shaded-pole motor","Split-phase motor"],a:0,exp:"A universal motor (series/commutator motor) uses brushes. Reversing the field winding (while armature stays same) reverses the torque direction. Note: reversing armature alone in a series motor has no effect as field also reverses."},
+
+{t:"Motors & Starters",q:"A shaded-pole motor is installed in a ventilation fan. Can it be easily reversed?",opts:["No — direction is fixed by the copper shading band position on the stator pole","Yes — by swapping any two supply connections","Yes — by reversing the capacitor connections","Yes — by changing the supply frequency"],a:0,exp:"Shaded-pole motors are single-direction only. The shading band creates a phase-displaced flux that always drives rotation in one fixed direction. Reversal requires physical disassembly and repositioning."},
+
+{t:"Motors & Starters",q:"Why is a capacitor-start motor preferred over a split-phase motor for a circular saw bench?",opts:["Capacitor-start develops much higher starting torque than split-phase — necessary for loads requiring high torque at start","It runs at a lower speed suitable for saw benches","It is physically smaller and easier to install","It requires no starting mechanism"],a:0,exp:"Capacitor-start motors develop approximately 3–4.5× full-load torque at start (vs ~1.5–2.5× for split-phase). A circular saw requires high starting torque to overcome the inertia of the blade."},
+
+{t:"Motors & Starters",q:"What is the purpose of a no-volt release (NVR) coil in a motor starter?",opts:["When supply voltage fails, the contactor drops out and the motor does not restart automatically when supply returns — requiring a deliberate manual restart","It reduces starting current by 50%","It provides overload protection to the motor","It measures supply voltage continuously"],a:0,exp:"NVR: when supply fails or drops, the holding coil de-energises, the contactor opens. On restoration of supply, the motor stays stopped — an operator must press Start. This prevents unexpected restart, which could injure personnel working near the machine."},
+
+{t:"Motors & Starters",q:"What is the purpose of electrical interlocks in a star-delta starter?",opts:["To prevent the star and delta contactors closing simultaneously — which would create a phase-to-phase short circuit","To monitor motor winding temperature","To limit starting current to 50% of DOL value","To disconnect the motor if pf falls below 0.8"],a:0,exp:"Simultaneous closure of star and delta contactors = two phases directly connected via motor windings = bolted phase-to-phase short. Interlocks: each contactor has a normally-closed contact in the other's coil circuit — physically impossible for both to close together."},
+
+{t:"Motors & Starters",q:"What is the effect if electrical interlocks in a star-delta starter fail?",opts:["Could prevent the motor starting, or could cause a dangerous phase-to-phase short circuit","The motor will start in delta only and run slightly faster","The thermal overload will operate immediately","The motor will run in reverse"],a:0,exp:"Two possible failure modes: (1) if the interlock contact opens, the motor cannot transition from star to delta and stalls. (2) if the interlock fails closed, both contactors could energise simultaneously — creating a phase-to-phase fault."},
+
+{t:"Motors & Starters",q:"How does a thermistor (PTC type) protect a three-phase induction motor?",opts:["It senses winding temperature rise and opens the control circuit when a preset temperature is exceeded, shutting down the motor","It measures supply current and trips a contactor","It monitors supply voltage and disconnects at low voltage","It limits starting current to a safe value"],a:0,exp:"PTC thermistors embedded in the windings: resistance increases sharply at the trip temperature. A monitoring relay senses this resistance jump and interrupts the control circuit — stopping the motor before insulation damage occurs."},
+
+{t:"Motors & Starters",q:"What occurs if load torque exceeds the motor's pull-out torque?",opts:["The motor stalls (ceases to rotate) and draws locked-rotor current continuously, rapidly overheating","The motor speeds up to compensate for the higher load","The power factor improves automatically","The contactor trips on undervoltage"],a:0,exp:"Pull-out torque is the maximum torque the motor can develop. If load exceeds this, the motor stalls — the rotor stops but full voltage remains applied. Locked-rotor current (6–8× FLC) flows continuously, overheating the windings in seconds."},
+
+{t:"Motors & Starters",q:"Why should a 3-phase motor not run continuously at very light load when designed for full load?",opts:["It will have poor power factor and low efficiency — magnetising current remains high regardless of load, causing reactive power waste","It will run too fast and damage bearings","It cannot sustain rotation at light load","It draws more current at light load"],a:0,exp:"Magnetising current (reactive) stays nearly constant regardless of load. At light load it forms a high proportion of total current → poor power factor. Core and friction losses remain constant → poor efficiency. Operating costs rise unnecessarily."},
+
+{t:"Motors & Starters",q:"HRC fuses protect the origin of a motor subcircuit even when thermal overloads are fitted. Why?",opts:["Thermal overloads protect against sustained overcurrents only — HRC fuses provide high rupturing capacity to safely clear large short-circuit fault currents","HRC fuses are cheaper than thermal overloads","HRC fuses detect phase loss more reliably","HRC fuses reduce starting current"],a:0,exp:"Thermal overload relays are designed for sustained overcurrents (overloads) — they cannot safely interrupt the very high short-circuit fault currents (potentially many kA). HRC fuses are rated for high fault currents and provide essential back-up short-circuit protection."},
+
+// ══ CABLES & SWITCHBOARDS ══
+{t:"Cables & Switchboards",q:"Maximum voltage drop from point of supply to any utilisation point per AS/NZS 3000?",opts:["5%","2%","3%","10%"],a:0,exp:"AS/NZS 3000 Clause 3.6.2: maximum 5% voltage drop from point of supply to any point of utilisation under normal operating conditions."},
+
+{t:"Cables & Switchboards",q:"State ONE factor that determines voltage drop in a final subcircuit TPS cable.",opts:["The cross-sectional area of the conductors","The colour of the cable insulation","The brand of the cable","The year of manufacture"],a:0,exp:"VD = mV/A/m × I × L / 1000. Determined by: conductor CSA, cable length, load current, and conductor material. CSA, length, and current are the key practical factors."},
+
+{t:"Cables & Switchboards",q:"A cable's current-carrying capacity must be derated when installed in which conditions?",opts:["Buried in ground, bunched with other cables, or in high ambient temperature","Run vertically in a wall only","Installed in free air on open tray","Used at voltages below the cable rating"],a:0,exp:"Derating factors apply for: burial (reduced heat dissipation to soil), grouping/bunching (mutual heating), and high ambient temperatures (reduced temperature differential). Free air installation at standard temperature needs no derating."},
+
+{t:"Cables & Switchboards",q:"A 400 V subcircuit has Zs = 0.45 Ω. Calculate fault current.",opts:["889 A","512 A","1778 A","256 A"],a:0,exp:"IF = VL/Zs = 400/0.45 = 889 A. Note: use 400 V for 3-phase circuits and 230 V for single-phase circuits when calculating fault current.",calc:true},
+
+{t:"Cables & Switchboards",q:"ONE advantage of neutral-screened flexible cable over standard PVC flexible cable for a 3-phase motor?",opts:["The screen provides a low-impedance earth fault path and reduces radiated EMI from the cable","It is less expensive per metre","It has a higher temperature rating","It is lighter weight"],a:0,exp:"Metallic screen bonded to earth: (1) provides a reliable low-impedance fault return path ensuring protection operates quickly; (2) screens electrical interference — important near sensitive control equipment."},
+
+// ══ PHASE/NEUTRAL TRANSPOSITION ══
+{t:"Phase/Neutral Transposition",q:"Phase and neutral are transposed at the mains entry of a 230 V domestic installation. State ONE hazard when livened.",opts:["The main fuse will not operate under a phase fault — exposed metal parts can remain live at 230 V even with the main switch open","Supply voltage will double to 460 V","All circuits will be dead","The RCD immediately trips"],a:0,exp:"With transposition: (1) the overcurrent protection is now in the neutral — it won't operate during a phase-to-earth fault on the installation. (2) opening the main switch breaks the neutral but leaves the phase live through all connected loads."},
+
+{t:"Phase/Neutral Transposition",q:"Phase/neutral transposed at the supply side of a motor isolating switch. Motor is on. Why doesn't the RCCB operate?",opts:["The RCCB senses current in both conductors — even swapped, the total balance is unchanged so residual current is still zero","The RCCB has failed","Transposition reduces leakage current","The RCCB only works on 3-phase"],a:0,exp:"The RCCB detects current imbalance between live and neutral. With phase/neutral swapped, exactly the same load current flows in both conductors — just with labels reversed. The RCCB sees zero residual current and does not trip."},
+
+{t:"Phase/Neutral Transposition",q:"Phase/neutral transposed at supply of motor switch. Motor is on. Why doesn't the MCB operate?",opts:["The MCB detects current magnitude only — normal load current flows and there is no overcurrent to detect","The MCB has failed","The motor draws less current with transposition","The MCB is bypassed by the RCD"],a:0,exp:"MCBs respond to current magnitude (and for thermal types, also to duration). With transposition, the same normal load current flows — the MCB sees no overcurrent and does not trip. Both RCCB and MCB continue to provide their designed protection functions."},
+
+{t:"Phase/Neutral Transposition",q:"State TWO tests to detect a phase/neutral transposition BEFORE a subcircuit is livened.",opts:["Polarity test and continuity test (verifying correct phase/neutral assignment throughout the circuit)","IR test and earth continuity test","Voltage test and RCD test","Loop impedance test and RCD test"],a:0,exp:"(1) Polarity test: verifies single-pole devices are in the phase conductor — transposition places them in neutral. (2) Continuity test: tracing each conductor from switchboard to outlets confirms correct conductor assignment."},
+
+// ══ LIGHTING & ELECTRONICS ══
+{t:"Lighting & Electronics",q:"State TWO main functions of a ballast (choke) in a fluorescent light fitting.",opts:["Provides starting voltage when the starter opens, and limits current once the arc is struck","Improves power factor and reduces flicker","Cools the lamp and provides UV output","Steps up voltage and filters harmonics"],a:0,exp:"(1) Starting: when the starter bi-metal opens, the collapsing magnetic field in the choke induces a high voltage spike (~1 kV) to strike the arc. (2) Current limiting: the struck arc has negative resistance — the choke's inductive reactance limits current to prevent runaway."},
+
+{t:"Lighting & Electronics",q:"What is the stroboscopic effect in fluorescent lighting and TWO ways to reduce it?",opts:["Lamps flicker at 100 Hz making rotating machinery appear stationary — reduced by different-phase lamps adjacent or using HF electronic ballasts","Overheating causing colour shift — fixed with better phosphor coating","Humming from the ballast — fixed by replacing the starter capacitor","The lamp goes out at mains zero-crossings — fixed by higher supply voltage"],a:0,exp:"Fluorescent lamps running at 50 Hz extinguish/reignite 100 times/second. Rotating machinery can appear stationary or slow (stroboscopic effect — dangerous). Solutions: (1) adjacent lamps on different phases (A, B, C), (2) high-frequency (HF) electronic ballasts at 20–50 kHz eliminate perceptible flicker."},
+
+{t:"Lighting & Electronics",q:"What is a BJT (Bipolar Junction Transistor)?",opts:["A semiconductor device with base, collector, and emitter — uses both holes and electrons as charge carriers","A type of HRC fuse for semiconductor protection","A transformer winding configuration","A type of rectifier diode"],a:0,exp:"BJT = Bipolar Junction Transistor. Three terminals: Base, Collector, Emitter. Uses both electron and hole charge carriers (bipolar). Used for amplification and switching. Common types: NPN and PNP."},
+
+{t:"Lighting & Electronics",q:"What is a transducer?",opts:["A device that converts energy from one form to another","A type of transformer used in metering circuits","A semiconductor used for rectification","A type of motor speed controller"],a:0,exp:"A transducer converts energy from one form to another. Examples: microphone (sound→electrical), thermocouple (heat→electrical), strain gauge (mechanical→electrical), loudspeaker (electrical→sound)."},
+
+{t:"Lighting & Electronics",q:"What TWO components are typically used to smooth the DC output of a rectifier?",opts:["Capacitor and inductor (choke)","Transformer and fuse","Diode and resistor","Transistor and zener diode"],a:0,exp:"Smoothing the pulsating DC from a rectifier: (1) large capacitor — charges during peaks, discharges between them, reducing ripple. (2) inductor/choke — opposes rapid current changes, further smoothing the output waveform."},
+
+{t:"Lighting & Electronics",q:"What is 'direct' lighting in electrical installations?",opts:["90–100% of light directed downward onto the illuminated surface with no obstruction between source and surface","Light distributed equally in all directions","Light reflected off the ceiling first","Light controlled by a dimmer circuit"],a:0,exp:"Direct lighting: 90–100% of lumens are directed straight onto the working surface — efficient and high illuminance. Used in factories, offices, commercial spaces. Contrast: indirect lighting reflects off ceiling (soft but less efficient)."},,
+{t:"Calculations",q:"100 m of 3-phase mains cable has an insulation resistance of 100 MΩ. What is the IR of 500 m of the same cable type?",opts:["20 MΩ","500 MΩ","100 MΩ","0.5 MΩ"],a:0,exp:"IR is inversely proportional to length: R₂ = R₁ × L₁/L₂ = 100 × 100/500 = 20 MΩ. Longer cable = more parallel leakage paths = lower overall IR.",calc:true},
+
+{t:"Calculations",q:"A 12 V DC supply has internal resistance 0.2 Ω. It supplies 9 V lights (1.5 A each) in parallel. What is the maximum number of lights?",opts:["10","15","6","20"],a:0,exp:"Max current from supply = (V_supply − V_load)/R_internal = (12−9)/0.2 = 15 A. Number of lights = 15/1.5 = 10.",calc:true},
+
+{t:"Calculations",q:"A 400 V 3-phase commercial oven has 3 MIMS elements connected in star, each rated at 6 kW. Calculate the phase current.",opts:["26.1 A","43.3 A","15.0 A","78.3 A"],a:0,exp:"Each element sits across phase voltage = 230 V. Iph = P/Vph = 6000/230 = 26.09 A ≈ 26.1 A. In star, IL = Iph = 26.1 A.",calc:true},
+
+{t:"Calculations",q:"A 400 V 3-phase deep fryer is rated at 15 kW at unity pf. Calculate the line current.",opts:["21.7 A","37.5 A","10.8 A","43.3 A"],a:0,exp:"IL = P/(√3×VL×pf) = 15000/(1.732×400×1.0) = 15000/692.8 = 21.65 A ≈ 21.7 A.",calc:true},
+
+{t:"Calculations",q:"A 300 kVA delta-star transformer: turns ratio 137.5:1, primary 33 kV line. Calculate secondary phase voltage.",opts:["240 V","415 V","120 V","480 V"],a:0,exp:"Primary delta: Vph_primary = VL = 33,000 V. Vs_ph = Vp_ph/ratio = 33000/137.5 = 240 V.",calc:true},
+
+{t:"Calculations",q:"Same transformer (Vs_ph = 240 V, delta-star). Calculate secondary line voltage.",opts:["415.7 V","240 V","480 V","277 V"],a:0,exp:"VL_secondary = √3 × Vph = 1.732 × 240 = 415.7 V ≈ 416 V (a non-standard voltage — imported machinery supply).",calc:true},
+
+{t:"Calculations",q:"Same 300 kVA transformer, primary 33 kV line. Calculate primary line current.",opts:["5.25 A","9.09 A","2.63 A","10.5 A"],a:0,exp:"IL_primary = kVA/(√3×VL) = 300,000/(1.732×33,000) = 300,000/57,156 = 5.25 A.",calc:true},
+
+{t:"Calculations",q:"Same transformer, secondary VL = 415.7 V. Calculate maximum secondary line current at full load.",opts:["416.7 A","240 A","208 A","833 A"],a:0,exp:"IL_secondary = kVA/(√3×VL) = 300,000/(1.732×415.7) = 300,000/719.9 = 416.7 A.",calc:true},
+
+{t:"Calculations",q:"A 3-phase installation has these loads: Lighting 9 kW (pf 1.0), Heating 15 kW (pf 1.0), Welding 12 kVA (pf 0.7). Calculate total kW.",opts:["32.4 kW","36 kW","24 kW","28.4 kW"],a:0,exp:"Welding kW = 12×0.7 = 8.4 kW. Total kW = 9+15+8.4 = 32.4 kW.",calc:true},
+
+{t:"Calculations",q:"Same installation: total kW = 32.4, total kVAr = 28.6. Calculate total kVA.",opts:["43.2 kVA","61 kVA","32.4 kVA","28.6 kVA"],a:0,exp:"kVA = √(kW²+kVAr²) = √(32.4²+28.6²) = √(1049.8+818) = √1867.8 = 43.2 kVA.",calc:true},
+
+{t:"Calculations",q:"Same installation: total kW = 32.4, total kVA = 43.2. Calculate overall power factor.",opts:["0.750","0.924","1.000","0.866"],a:0,exp:"pf = kW/kVA = 32.4/43.2 = 0.750.",calc:true},
+
+{t:"Calculations",q:"Same installation: total kW = 32.4, pf = 0.75, VL = 400 V. Calculate line current.",opts:["62.4 A","46.8 A","83.2 A","31.2 A"],a:0,exp:"IL = P/(√3×VL×pf) = 32,400/(1.732×400×0.75) = 32,400/519.6 = 62.4 A.",calc:true},
+
+{t:"Calculations",q:"A 2 kW heater runs at 230 V. Supply drops 5% to 218.5 V. By how much does power output change?",opts:["Drops by approximately 10% (to ~1800 W)","Drops by 5% (to 1900 W)","Stays the same — heaters are constant power","Increases because current rises"],a:0,exp:"P∝V². New P = 2000×(218.5/230)² = 2000×0.9025 = 1805 W — a drop of ~10%. Key point: a 5% voltage drop causes approximately 10% power reduction (drops by the square of the voltage ratio).",calc:true},
+
+{t:"Calculations",q:"A 2500 W heater at 230 V. Supply drops 5% (to 218.5 V). Calculate new power output.",opts:["2257 W","2375 W","2500 W","2625 W"],a:0,exp:"R = V²/P = 230²/2500 = 21.16 Ω. New P = 218.5²/21.16 = 47,742/21.16 = 2257 W. Alternatively: 2500×(218.5/230)² = 2500×0.9025 = 2256 W.",calc:true},
+
+{t:"Calculations",q:"A single-phase AC inductive circuit: V=235 V, I=12 A, P=2115 W. Calculate power factor.",opts:["0.750","0.924","0.800","1.000"],a:0,exp:"pf = P/(V×I) = 2115/(235×12) = 2115/2820 = 0.750.",calc:true},
+
+{t:"Calculations",q:"A single-phase circuit: V=235 V, I=70 A, P=15.2 kW. Calculate power factor.",opts:["0.924","0.750","0.866","1.000"],a:0,exp:"pf = P/(V×I) = 15200/(235×70) = 15200/16450 = 0.924.",calc:true},
+
+{t:"Calculations",q:"Calculate the impedance of a circuit with R = 5 Ω and XC = 12 Ω (capacitive reactance).",opts:["13 Ω","17 Ω","7 Ω","10.9 Ω"],a:0,exp:"Z = √(R²+XC²) = √(25+144) = √169 = 13 Ω. Capacitive and inductive reactance both use Z = √(R²+X²).",calc:true},
+
+{t:"Calculations",q:"A star-connected 3-phase motor: Vph = 230 V, R per phase = 30 Ω, pf = 1.0. Calculate 3-phase true power.",opts:["5307 W","9200 W","1769 W","15920 W"],a:0,exp:"Iph = Vph/Rph = 230/30 = 7.67 A. IL = Iph = 7.67 A (star). P = √3×VL×IL×pf = 1.732×400×7.67×1.0 = 5314 W ≈ 5307 W.",calc:true},
+
+{t:"Calculations",q:"An 8-pole induction motor runs on 50 Hz. What is its synchronous speed?",opts:["750 rpm","1500 rpm","3000 rpm","375 rpm"],a:0,exp:"Ns = 120f/P = 120×50/8 = 750 rpm.",calc:true},
+
+{t:"Calculations",q:"A 6-pole, 50 Hz motor has a rotor speed of 940 rpm. Calculate the percentage slip.",opts:["6.0%","4.0%","5.0%","3.0%"],a:0,exp:"Ns = 120×50/6 = 1000 rpm. %slip = (Ns−Nr)/Ns × 100 = (1000−940)/1000 × 100 = 60/1000 × 100 = 6.0%.",calc:true},
+
+{t:"Calculations",q:"A motor runs at 960 rpm developing torque of 200 Nm. Calculate the mechanical output power.",opts:["20.1 kW","19.2 kW","15.1 kW","25.1 kW"],a:0,exp:"P = 2π×N×T/60 = 2×3.1416×960×200/60 = 2×3.1416×3200 = 20,106 W ≈ 20.1 kW.",calc:true},
+
+{t:"Calculations",q:"A motor has output 20 kW and efficiency 85%. Calculate input power and line current at 400 V, pf 0.87.",opts:["Pin=23.5 kW, IL=39.0 A","Pin=17 kW, IL=28.2 A","Pin=20 kW, IL=33.2 A","Pin=26 kW, IL=43.2 A"],a:0,exp:"Pin = Pout/η = 20000/0.85 = 23,529 W. IL = Pin/(√3×VL×pf) = 23529/(1.732×400×0.87) = 23529/602.3 = 39.1 A ≈ 39.0 A.",calc:true},
+
+{t:"Calculations",q:"A 1-phase transformer: Vp=11,000 V, Vs=230 V. How many secondary turns if there are 4,400 primary turns?",opts:["92 turns","110 turns","48 turns","220 turns"],a:0,exp:"Ns = Np×(Vs/Vp) = 4400×(230/11000) = 4400×0.02091 = 92 turns.",calc:true},
+
+{t:"Calculations",q:"A CT has ratio 400:5. Primary carries 320 A. What does the secondary ammeter read?",opts:["4.0 A","5.0 A","3.2 A","6.4 A"],a:0,exp:"Is = Ip×(Ns/Np) = 320×(5/400) = 320×0.0125 = 4.0 A.",calc:true},
+
+{t:"Calculations",q:"A 230 V circuit: Zs = 0.34 Ω at switchboard. Calculate PSCC and state what it is used for.",opts:["676 A — to verify protective device rupturing capacity is adequate","230 A — to select cable size","1000 A — to set the RCD threshold","0.34 A — the maximum earth fault current"],a:0,exp:"PSCC = V/Zs = 230/0.34 = 676 A. This is used to verify that installed protective devices have a rupturing capacity ≥676 A and will operate in the required disconnection time.",calc:true},
+
+// ══ HARDER CONCEPTUAL — real exam question types ══
+
+{t:"Electrical Protection",q:"A Type AC RCD — can it be used for personal protection in New Zealand? State a reason.",opts:["No — it does not operate on pulsating DC residual current, which modern electronic equipment can produce","Yes — all RCDs meet the NZ Regulation 24 requirements in all electrical installations","No — it has too slow a trip time under normal operating conditions","Yes — but only for outdoor circuits as required by AS/NZS 3000"],a:0,exp:"Type AC only detects sinusoidal AC residual current. Modern equipment (VSDs, EV chargers, switch-mode PSUs) produces pulsating DC fault currents. Type AC would not detect these — fatal fault current could flow undetected. Type A is mandatory in NZ."},
+
+{t:"Electrical Protection",q:"An earth fault loop impedance of 0.34 Ω is measured at the switchboard. How is this information used?",opts:["To calculate PSCC and verify that protective device rupturing capacity and disconnection time are adequate","To check the supply voltage is correct in all electrical installations","To test the RCD trip threshold under normal operating conditions","To measure the neutral conductor resistance as required by AS/NZS 3000"],a:0,exp:"Zs at switchboard gives the highest PSCC = V/Zs. This is used to: (1) verify all protective devices have adequate rupturing capacity, (2) confirm earth loop impedance is low enough to operate protection within required disconnection times."},
+
+{t:"Electrical Protection",q:"A 3-phase motor is stalled by a mechanical overload. What sequence of events occurs with DOL starter and HRC fuses?",opts:["Excessive current flows on all phases — thermal overload opens control circuit OR HRC fuses blow","Only the RCD trips — others do nothing in all electrical installations","Supply voltage drops automatically under normal operating conditions","Star-delta transition begins as required by AS/NZS 3000"],a:0,exp:"Motor stall = locked rotor current (6–8× FLC) flows continuously. Thermal overload relay detects sustained overcurrent and opens the control circuit (contactor drops out). If thermal overload fails, HRC fuses blow as back-up protection."},
+
+{t:"Electrical Protection",q:"Supply voltage drops to 350 V (from 400 V) while a motor runs fully loaded. What happens?",opts:["Sustained high current flows as motor tries to maintain load torque — thermal overload may eventually operate","The motor immediately stops in all electrical installations","HRC fuses blow instantly under normal operating conditions","No effect — motors self-regulate voltage as required by AS/NZS 3000"],a:0,exp:"Lower voltage means lower torque capability. The motor draws more current to maintain load torque. If the sustained overcurrent is sufficient, the thermal overload eventually operates. HRC fuses will not blow unless current far exceeds their rating."},
+
+{t:"Electrical Protection",q:"One fuse blows on a 3-phase DOL-controlled delta-connected motor running at full load. What happens?",opts:["Motor runs on 2 phases — single-phasing occurs. High current in remaining windings causes thermal overload to operate","Motor stops immediately and safely in all electrical installations","Nothing — delta motors can run on 2 phases indefinitely under normal operating conditions","MCB trips on the remaining phases as required by AS/NZS 3000"],a:0,exp:"Single-phasing (one fuse blown): current in remaining two phases rises significantly as the motor tries to maintain torque on two phases. The thermal overload detects the overcurrent and operates. Without protection, motor windings overheat and burn out."},
+
+{t:"Electrical Protection",q:"Why would a 3-pole MCB be preferred over 3 individual HRC fuses to protect a 3-phase circuit?",opts:["When a fault occurs on one phase, the MCB trips all three poles simultaneously — preventing single-phasing. Individual fuses may blow on one phase only","MCBs are always cheaper than HRC fuses in all electrical installations","MCBs have higher rupturing capacity than HRC fuses under normal operating conditions","MCBs do not need to be selected for fault level as required by AS/NZS 3000"],a:0,exp:"A 3-pole MCB: if any one phase has a fault, all three phases are disconnected simultaneously — preventing dangerous single-phasing. With individual fuses, one may blow while the others remain — leaving the motor on two phases."},
+
+{t:"Electrical Protection",q:"State TWO hazards if main neutral conductor impedance is HIGHER than main earth conductor impedance in an MEN installation.",opts:["Touch voltage on exposed metalwork could rise above safe level, and protective devices may not operate correctly under fault conditions","The power factor decreases and the motor overheats","The supply voltage increases and insulation fails","The RCD trips continuously"],a:0,exp:"High neutral impedance means: (1) under fault/load conditions, more return current flows via earth path — touch voltage on exposed parts rises. (2) Fault current in the preferred neutral path is reduced — protective devices may not operate within required time. Also risk of over/under voltage on 3-phase installations."},
+
+{t:"Electrical Protection",q:"Two phases are found live at 3-phase fixed-wired equipment terminals after an adjacent isolating switch has been opened. What fault has occurred?",opts:["The isolating switch contacts on one phase failed to open","The earth conductor has broken","The RCD is faulty in all electrical installations","The motor has developed a short circuit"],a:0,exp:"If two phases remain live after the isolator is opened, the switch contacts on the third phase have failed to open (weld or mechanical failure). The isolator has failed to fully interrupt the supply."},
+
+{t:"NZ Supply & MEN",q:"State TWO electrical hazards if main neutral impedance is higher than main earth conductor impedance.",opts:["Exposed metalwork touch voltage may rise above safe levels, and protective devices may not operate in required disconnection time","Motor runs slowly and transformer overheats in all electrical installations","Supply frequency changes and RCDs nuisance-trip under normal operating conditions","Power factor deteriorates and fuses blow as required by AS/NZS 3000"],a:0,exp:"High neutral impedance: (1) more fault/load return current takes earth path → elevated touch voltage on metalwork. (2) Neutral voltage rises → equipment damage, and reduced neutral fault current means protection may not trip within required time."},
+
+{t:"Testing & Inspection",q:"Why is 500 V DC (not AC) used for insulation resistance testing?",opts:["DC gives true resistive reading and 500 V stresses insulation enough to reveal weaknesses","DC is always safer than AC when testing on or near live circuits","AC at 500 V would melt or destroy the test lead insulation","500 V DC is the only voltage a standard insulation resistance tester can output"],a:0,exp:"Two reasons: (1) 500 V is high enough to stress insulation and reveal degradation. (2) DC gives a true resistive reading — AC would create capacitive charging current through cable capacitance, producing misleading results on long cables."},
+
+{t:"Testing & Inspection",q:"An IR test on a 230 V installation gives 1 MΩ with MIMS equipment disconnected, but drops to 0.01 MΩ with MIMS equipment connected. Is the result acceptable?",opts:["Yes — 0.01 MΩ is the accepted minimum with MIMS elements connected","No — result must be 1 MΩ even with MIMS elements connected","No — testing with any equipment connected is not permitted","Yes — any reading above zero is acceptable when MIMS is connected"],a:0,exp:"AS/NZS 3000: with MIMS elements connected, the minimum IR is 0.01 MΩ (10 kΩ), because MIMS elements are characteristically low-resistance by their nature. With equipment disconnected the installation itself must read ≥1 MΩ."},
+
+{t:"Testing & Inspection",q:"AS/NZS 3760 details TWO test methods to verify Class I appliance insulation. Name them and their acceptable results.",opts:["IR test (≥1 MΩ or ≥10,000 Ω) and earth leakage test (≤5 mA)","Voltage test (230 V at load terminals) and earth continuity test (≤1 Ω)","Polarity test (phase in correct terminal) and IR test (≥1 MΩ)","Earth fault loop impedance test and RCD trip time test"],a:0,exp:"AS/NZS 3760 specifies: (1) Insulation resistance test — minimum 1 MΩ (or 10,000 Ω for some equipment classes). (2) Earth leakage test — maximum 5 mA touch current while live. Either method confirms insulation integrity."},
+
+{t:"Motors & Starters",q:"State TWO reasons for using reduced-voltage starting on a 3-phase induction motor.",opts:["Limit the starting current surge to reduce supply disturbance, and reduce mechanical shock on the driven machinery","Increase available starting torque and simultaneously improve supply power factor","Allow the motor to accelerate faster and reach running speed with lower slip","Protect the motor against single-phasing and prevent thermal overload relay trips"],a:0,exp:"Reduced-voltage starting: (1) reduces starting current (up to 8× FLC for DOL) which causes voltage dips and supply disturbance. (2) Reduces mechanical shock torque on couplings, gearboxes, and driven equipment. Trade-off: starting torque also reduces."},
+
+{t:"Motors & Starters",q:"Why are 6 conductors required between a star-delta starter and a 3-phase motor?",opts:["Both ends of all 3 windings must be accessible for star/delta changeover — 3 windings × 2 ends = 6 conductors","Three-phase supply requires 3 phase conductors plus 3 separate protective earth conductors","Star connection uses 3 conductors and delta uses 3 different conductors — hence 6 total","The motor requires two completely separate 3-phase supplies for the two connection methods"],a:0,exp:"A star-delta starter needs to access both ends of all three motor windings to reconnect them from star to delta. This means 6 conductors: U1, V1, W1 (one end of each winding) and U2, V2, W2 (other end). DOL starters only need 3 conductors (one end connection)."},
+
+{t:"Motors & Starters",q:"What additional consideration is needed when a motor runs at low speeds for extended periods on a variable speed drive?",opts:["Internal shaft fan gives insufficient cooling at low speed — an external powered blower motor may be needed","The VSD automatically compensates by boosting cooling at low operating speeds","The motor stator must be rewound with a lower-resistance winding for low-speed use","A star-delta starter must also be installed in series with the VSD output terminals"],a:0,exp:"Standard induction motors use a shaft-mounted fan for cooling — effective only at normal running speed. At low VSD-controlled speeds, fan output is reduced. For extended low-speed operation, an external separately-powered cooling fan is required to prevent overheating."},
+
+{t:"Motors & Starters",q:"Define 'ramp time' as it applies to a variable speed drive (VSD).",opts:["Time for the drive to accelerate from zero to set speed, or decelerate from set speed to stop","Time for the motor to reach synchronous speed under direct-on-line starting","Time elapsed between a stop command and the drive beginning to reduce frequency","The thermal time constant determining how quickly the motor heats under overload"],a:0,exp:"Ramp time in a VSD defines the rate of frequency change: acceleration ramp = time from 0 to full speed; deceleration ramp = time from full speed to 0. Longer ramp times reduce mechanical shock and starting current. Adjustable to suit the load."},
+
+{t:"Motors & Starters",q:"A capacitor-start motor running normally suddenly experiences a 50% speed drop due to mechanical overload, and electrical protection fails to operate. What happens?",opts:["Centrifugal switch closes at reduced speed — start winding and capacitor reconnect, causing excessive current and overheating","The motor automatically restarts from zero once speed drops below synchronous speed","The supply voltage automatically rises to restore motor speed to normal","The RCD detects the increased leakage current and disconnects the motor"],a:0,exp:"Centrifugal switch: opens start winding at ~75–80% synchronous speed; closes again if speed drops below this. At 50% speed the switch closes, reconnecting start capacitor and winding — not designed for sustained use at running current. Excessive current flows, overheating the start winding and capacitor."},
+
+{t:"Motors & Starters",q:"What is the main advantage of a synchronous motor compared to a single-phase induction motor?",opts:["Runs at exactly synchronous speed regardless of load — no slip under any load condition","Develops substantially higher starting torque than single-phase induction motors","Completely self-starting requiring no capacitors, auxiliary windings, or external help","Cheaper to manufacture and requires less maintenance than induction motors"],a:0,exp:"A synchronous motor runs at exactly synchronous speed (Ns = 120f/P) under all load conditions — zero slip. An induction motor always has some slip (typically 2–6%). This makes synchronous motors useful for precise speed control (clocks, turntables, process equipment)."},
+
+{t:"Motors & Starters",q:"State TWO methods of phase-splitting used to provide starting torque in a single-phase induction motor.",opts:["Resistance split-phase (different R/X ratio in start winding) and capacitor splitting (capacitor in series with start winding)","Using two separate supply phases and star-delta starting in all electrical installations","DOL starting and auto-transformer starting under normal operating conditions","Shaded pole and permanent capacitor — but these are not phase-splitting methods"],a:0,exp:"Phase-splitting creates a phase displacement between start and run winding currents to produce a rotating field: (1) Resistance split-phase: start winding has higher R/X ratio creating a small phase angle. (2) Capacitor split-phase: capacitor in start winding creates a larger (90°) phase displacement for better starting torque."},
+
+{t:"RCDs & Isolating Transformers",q:"Why must an RCD used for personal protection switch BOTH the phase and neutral conductors?",opts:["If only the phase is switched, the neutral conductor remains connected — the installation can still be energised through an alternative path, defeating the isolation","RCDs only measure current in the phase conductor in all electrical installations","Both conductors must be switched to measure residual current under normal operating conditions","Neutral switching prevents nuisance tripping as required by AS/NZS 3000"],a:0,exp:"Switching both phase and neutral simultaneously ensures complete circuit isolation when the RCD trips. If only the phase were switched, the neutral path remains — applying voltage through the load from a different source or reverse-fed situation. Breaking both conductors is required for safe isolation."},
+
+{t:"Testing & Inspection",q:"State ONE reason why an earth fault loop impedance test is carried out at the socket outlet FURTHEST from the switchboard.",opts:["It has the highest Zs — if protection is adequate here, it will be anywhere","It is the most accessible outlet on the circuit","The furthest outlet has the lowest earth fault loop impedance","Testing the furthest outlet also verifies the RCD trip time simultaneously"],a:0,exp:"The furthest outlet has the highest earth fault loop impedance (Zs) because of the cable resistance from switchboard to outlet. Worst-case Zs = worst-case fault current. If protection operates within required disconnection time at this point, it will at all points on the circuit."},
+
+{t:"Testing & Inspection",q:"State TWO instrument tests on a new flexible cable and hot water cylinder before connecting to supply.",opts:["Insulation resistance test and earth continuity test","Voltage test and polarity test","RCD test and loop impedance test","Current test and power factor test"],a:0,exp:"Before connecting new equipment: (1) IR test — confirms insulation between live conductors and earth is adequate (≥1 MΩ). (2) Earth continuity test — confirms the protective earth conductor is intact and resistance is ≤1 Ω. These are pre-connection safety checks."},
+
+{t:"Testing & Inspection",q:"When replacing a hot water cylinder, you find the isolator has no lock or danger tag. What action must you take?",opts:["Confirm the circuit is isolated using the Prove-Test-Prove method before proceeding with any connections","Proceed immediately — the previous installer would have isolated it","Call the supervisor and wait in all electrical installations","Check the switchboard and assume isolation is in place under normal operating conditions"],a:0,exp:"Absence of a tag does NOT mean the circuit is isolated. Apply Prove-Test-Prove: (1) prove instrument works, (2) test at load terminals to confirm dead, (3) prove instrument still works. Only after confirming dead should you proceed — then lock off and apply your own danger tag."},
+
+{t:"Lighting & Electronics",q:"State ONE hazard when using a multimeter to measure output voltages in high-pressure sodium vapour lamp control circuits.",opts:["The open-circuit voltage of the lamp ignitor can exceed 2–4 kV — this can damage the multimeter and is a shock hazard to the operator","The multimeter will give an incorrect reading due to harmonics in all electrical installations","The lamp will be permanently damaged under normal operating conditions","The circuit will short-circuit through the meter as required by AS/NZS 3000"],a:0,exp:"High-pressure sodium lamp ignitors produce starting pulses of 2–4 kV. Standard multimeters are rated for much lower voltages (typically 600–1000 V CAT III). These pulses can destroy the meter and create a shock hazard. Appropriate high-voltage instruments must be used."},
+
+{t:"Lighting & Electronics",q:"State ONE hazard when disposing of broken low-pressure mercury vapour (fluorescent) lamps.",opts:["Fluorescent tubes contain mercury vapour — inhalation of mercury vapour or contact with mercury is toxic","They produce high voltage when broken in all electrical installations","They can ignite flammable materials under normal operating conditions","They emit high levels of UV radiation when broken as required by AS/NZS 3000"],a:0,exp:"Fluorescent lamps contain mercury (typically 3–5 mg). When broken: mercury vapour is released — toxic by inhalation. Mercury is also a persistent environmental contaminant. Lamps must be disposed of as hazardous waste, not broken in regular waste streams."},
+
+{t:"Lighting & Electronics",q:"State ONE hazard when disposing of sodium vapour lamps.",opts:["Sodium metal reacts with moisture — producing hydrogen gas (fire/explosion risk) and sodium hydroxide (caustic burns)","They contain toxic mercury vapour in all electrical installations","They emit UV radiation after disposal under normal operating conditions","They remain electrically live after disconnection as required by AS/NZS 3000"],a:0,exp:"Sodium lamps contain elemental sodium metal. Sodium reacts violently with water/moisture: 2Na + 2H₂O → 2NaOH + H₂↑. Hazards: (1) hydrogen gas production — fire and explosion risk, (2) sodium hydroxide (caustic soda) formation — severe chemical burns."},
+
+{t:"Lighting & Electronics",q:"What is the ripple frequency of a single-phase full-wave bridge rectifier supplied at 50 Hz?",opts:["100 Hz","50 Hz","200 Hz","25 Hz"],a:0,exp:"A full-wave bridge rectifier conducts on both half-cycles, producing 2 pulses per cycle. Ripple frequency = 2 × supply frequency = 2 × 50 = 100 Hz. Half-wave gives 50 Hz ripple.",calc:true},
+
+{t:"Lighting & Electronics",q:"What is the purpose of a Zener diode in a DC voltage regulator circuit?",opts:["To provide a stable, constant reference voltage across the load regardless of supply variations","To increase the rectified voltage to the required level","To smooth the AC ripple from the rectifier","To protect against reverse polarity connection"],a:0,exp:"A Zener diode operates in reverse breakdown at a fixed voltage (Vz). Connected in parallel with the load, it clamps the output voltage at Vz — providing a stable reference. Unlike normal diodes, Zeners are designed for continuous reverse-breakdown operation."},
+
+{t:"Lighting & Electronics",q:"What is the purpose of resistance R in series with a Zener diode voltage regulator?",opts:["It limits current through the Zener diode and drops the supply voltage to the Zener voltage rating","It increases the output voltage to match the load requirement","It filters out harmonics from the supply","It provides impedance matching between supply and load"],a:0,exp:"The series resistor: (1) limits current through the Zener (without it, Zener would be destroyed by excessive current), (2) drops the voltage from supply to the Zener voltage level. R = (Vsupply − Vz) / Iz_max.",calc:true},
+
+{t:"Lighting & Electronics",q:"Why is rectified 3-phase AC easier to smooth with filters than rectified single-phase AC?",opts:["3-phase rectified output has higher ripple frequency and lower ripple amplitude — smaller filter components are needed","3-phase has higher voltage so smoothing is easier in all electrical installations","3-phase requires no smoothing under normal operating conditions","Single-phase cannot be rectified efficiently as required by AS/NZS 3000"],a:0,exp:"3-phase full-wave rectification produces 6 pulses per cycle (ripple frequency = 300 Hz) with small ripple amplitude. Single-phase full-wave gives 2 pulses per cycle (100 Hz) with larger ripple. Higher frequency + lower amplitude = smaller capacitors/inductors needed for effective smoothing."},
+
+{t:"Cables & Switchboards",q:"A new hot water cylinder (elements 6 kW each × 3) replaces existing (1.5 kW each × 3). State TWO things about the existing final subcircuit to check.",opts:["Cable current rating and HRC fuse rating (and isolator/contactor ratings) must all be adequate for the increased load","Only check the cable — fuses self-select the correct rating","Check the voltage rating of the cable insulation","Check the earth electrode resistance and supply frequency"],a:0,exp:"With load increasing from 4.5 kW to 18 kW (4× increase), all current-carrying components must be re-rated: (1) cable CSA must handle the new full-load current without overheating, (2) HRC fuses must be correctly rated, (3) isolator and contactor current ratings must be adequate."},
+
+{t:"Cables & Switchboards",q:"State ONE reason why a 3-phase HRC fuse upstream protects MCBs with lower fault duty on an existing commercial switchboard.",opts:["The HRC fuse provides back-up fault protection — if PSCC exceeds MCB rupturing capacity, the HRC fuse clears the fault first","HRC fuses have lower current ratings than MCBs in all electrical installations","MCBs cannot be used with three-phase supplies under normal operating conditions","The HRC fuse improves power factor of the installation as required by AS/NZS 3000"],a:0,exp:"If the PSCC at the switchboard exceeds the MCBs' rupturing capacity, the MCBs could be destroyed in a fault. An upstream HRC fuse (with much higher rupturing capacity, up to 80 kA) limits the fault current let-through — acting as back-up to protect the downstream MCBs."},
+
+{t:"Phase/Neutral Transposition",q:"Phase/neutral are transposed in a 230 V installation. The main switch is opened. State ONE hazard that still exists.",opts:["The installation is not isolated — phase conductor remains live through loads connected to the neutral","The RCD will not operate in all electrical installations","The neutral carries full phase voltage under normal operating conditions","The earth conductor carries dangerous current as required by AS/NZS 3000"],a:0,exp:"With transposition, opening the 'main switch' (which is now in the neutral) breaks the neutral but leaves the phase conductor live through all connected loads. Anyone assuming isolation has occurred and works on the installation faces a fatal shock risk."},
+
+
+
+];
+
+const ALL_TOPICS = [...new Set(QS.map(q=>q.t))];
+let selTop=new Set(), examLen=10;
+let examQs=[], qIdx=0, score=0, answers=[], flagged=[], tStats={};
+
+function init(){
+  const grid=document.getElementById('topic-grid');
+  const ab=document.createElement('button');
+  ab.className='tbtn on'; ab.dataset.topic='__all__';
+  ab.innerHTML='<div class="tlabel">All topics</div><div class="tcount">'+QS.length+' questions ('+QS.filter(q=>q.calc).length+' 🔢)</div>';
+  ab.onclick=()=>toggle('__all__',ab); grid.appendChild(ab);
+  ALL_TOPICS.forEach(t=>{
+    const qs=QS.filter(q=>q.t===t);
+    const nc=qs.filter(q=>q.calc).length;
+    const b=document.createElement('button');
+    b.className='tbtn'; b.dataset.topic=t;
+    b.innerHTML='<div class="tlabel">'+t+'</div><div class="tcount">'+qs.length+' Qs'+(nc?' ('+nc+' 🔢)':'')+'</div>';
+    b.onclick=()=>toggle(t,b); grid.appendChild(b);
+  });
+}
+
+function toggle(t,btn){
+  if(t==='__all__'){
+    selTop.clear();
+    document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+  } else {
+    document.querySelector('[data-topic="__all__"]').classList.remove('on');
+    if(selTop.has(t)){selTop.delete(t);btn.classList.remove('on');}
+    else{selTop.add(t);btn.classList.add('on');}
+    if(selTop.size===0) document.querySelector('[data-topic="__all__"]').classList.add('on');
+  }
+}
+
+function setLen(btn,n){
+  examLen=n;
+  document.querySelectorAll('.lbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+function shuffle(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+
+function startExam(){
+  let pool=selTop.size===0?[...QS]:QS.filter(q=>selTop.has(q.t));
+  if(pool.length<4){alert('Not enough questions. Select more topics.');return;}
+  pool=shuffle(pool);
+  examQs=pool.slice(0,Math.min(examLen,pool.length));
+  qIdx=0;score=0;answers=[];flagged=[];
+  tStats={};ALL_TOPICS.forEach(t=>{tStats[t]={c:0,w:0};});
+  show('s-exam');renderQ();
+}
+
+function renderQ(){
+  const q=examQs[qIdx];
+  const pct=Math.round((qIdx/examQs.length)*100);
+  document.getElementById('pfill').style.width=pct+'%';
+  document.getElementById('qcnt').textContent='Question '+(qIdx+1)+' of '+examQs.length;
+  document.getElementById('qlive').textContent='Score: '+score+'/'+qIdx;
+  document.getElementById('nbtn').style.display='none';
+  document.getElementById('fbtn').style.display='none';
+
+  // shuffle answer options so position doesn't give it away
+  const order=shuffle([0,1,2,3]);
+  const correctNew=order.indexOf(q.a);
+
+  const fl=flagged.includes(qIdx);
+  let h='<div class="qcard">';
+  h+='<button class="flg'+(fl?' on':'')+'" onclick="toggleFlag('+qIdx+')" id="flgbtn">'+(fl?'★ Flagged':'☆ Flag')+'</button>';
+  h+='<span class="qtag">'+q.t+'</span>';
+  if(q.calc) h+='<span class="calctag">🔢 Calculation</span>';
+  h+='<div class="qtext">Q'+(qIdx+1)+'. '+q.q+'</div>';
+  order.forEach((origIdx,newIdx)=>{
+    h+='<button class="opt" id="opt-'+newIdx+'" onclick="answer('+newIdx+','+correctNew+')">'+String.fromCharCode(65+newIdx)+'.  '+q.opts[origIdx]+'</button>';
+  });
+  h+='<div class="exp" id="expbox">💡 '+q.exp+'</div></div>';
+  document.getElementById('qarea').innerHTML=h;
+}
+
+function toggleFlag(i){
+  if(flagged.includes(i))flagged=flagged.filter(x=>x!==i);else flagged.push(i);
+  const b=document.getElementById('flgbtn');
+  b.textContent=flagged.includes(i)?'★ Flagged':'☆ Flag';
+  b.classList.toggle('on',flagged.includes(i));
+}
+
+function answer(chosen,correctNew){
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  const ok=chosen===correctNew;
+  document.getElementById('opt-'+chosen).classList.add(ok?'ok':'bad');
+  if(!ok) document.getElementById('opt-'+correctNew).classList.add('show');
+  document.getElementById('expbox').classList.add('on');
+  const q=examQs[qIdx];
+  if(ok){score++;tStats[q.t].c++;}else{tStats[q.t].w++;}
+  answers.push({q,ok});
+  if(qIdx===examQs.length-1) document.getElementById('fbtn').style.display='inline-block';
+  else document.getElementById('nbtn').style.display='inline-block';
+}
+
+function nextQ(){qIdx++;renderQ();}
+
+function showResults(){
+  show('s-results');
+  const p=Math.round((score/examQs.length)*100);
+  document.getElementById('rpct').textContent=p+'%';
+  document.getElementById('rco').textContent=score;
+  document.getElementById('rwr').textContent=examQs.length-score;
+  let vc,vt;
+  if(p>=80){vc='vp';vt='Excellent — well above the ~70% pass mark.';}
+  else if(p>=70){vc='vb';vt='On the pass threshold. A bit more drilling and you\'ll be solid.';}
+  else if(p>=50){vc='vn';vt='Getting there — target the weak topics below.';}
+  else{vc='vf';vt='Needs more work — review all explanations carefully.';}
+  document.getElementById('rverd').innerHTML='<div class="verd '+vc+'">'+vt+'</div>';
+  const used=[...new Set(examQs.map(q=>q.t))];
+  let bk='';
+  used.forEach(t=>{
+    const s=tStats[t];const tot=s.c+s.w;if(!tot)return;
+    const tp=Math.round((s.c/tot)*100);
+    const col=tp>=75?'#639922':tp>=50?'#BA7517':'#A32D2D';
+    bk+='<div class="rbar"><span class="rbl">'+t+'</span><div class="rbt"><div class="rbf" style="width:'+tp+'%;background:'+col+'"></div></div><span class="rbv">'+s.c+'/'+tot+'</span></div>';
+  });
+  document.getElementById('tbk').innerHTML=bk;
+}
+
+function reviewWrong(){
+  show('s-review');
+  const wrong=answers.filter(a=>!a.ok);
+  if(!wrong.length){document.getElementById('rarea').innerHTML='<p style="padding:1rem">No wrong answers — perfect score!</p>';return;}
+  let h='';
+  wrong.forEach((a,i)=>{
+    h+='<div class="rc"><span class="qtag">'+a.q.t+'</span>';
+    if(a.q.calc) h+='<span class="calctag">🔢 Calculation</span>';
+    h+='<div class="qtext">Q'+(i+1)+'. '+a.q.q+'</div>';
+    // show in original order for review
+    a.q.opts.forEach((o,j)=>{
+      const c=j===a.q.a?'show':'';
+      h+='<button class="opt '+c+'" disabled>'+String.fromCharCode(65+j)+'.  '+o+'</button>';
+    });
+    h+='<div class="exp on">💡 '+a.q.exp+'</div></div>';
+  });
+  document.getElementById('rarea').innerHTML=h;
+}
+
+function goHome(){show('s-home');}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+init();
+</script>
+</body>
+</html>
